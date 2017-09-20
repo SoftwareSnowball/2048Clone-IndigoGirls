@@ -12,4 +12,9 @@
 
 
 def initializeGame(messageDictionary):
-    pass;
+
+    
+
+
+
+    return messageDictionary;

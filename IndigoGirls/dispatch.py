@@ -1,4 +1,5 @@
 import json
+from IndigoGirls.initializeGame import initializeGame
 
 def dispatch(messageJson=None):
     """
@@ -42,8 +43,7 @@ def dispatch(messageJson=None):
     #  input to each function:  a dictionary containing the name-value pairs of the input JSON string
     #  output of each function:  a dictionary containing name-value pairs to be encoded as a JSON string
     if(messageDictionary[u"op"] == u"initializeGame"):
-        # resultDictionary =   REPLACE_WITH_YOUR_FUNCTION(messageDictionary)    #<---------- replace this statement with your implementation
-        resultDictionary = messageDictionary                                    #<---------- remove this statement
+        resultDictionary = initializeGame(messageDictionary)
     else:
         resultDictionary = buildErrorString('op is invalid')
 
