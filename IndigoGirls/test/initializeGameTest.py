@@ -3,7 +3,7 @@
 
     @Author: James Malloy
 
-    This file contains unit test pertaining to the initializeGame function
+    This file contains unit tests pertaining to the initializeGame function
 """
 
 from unittest import TestCase
@@ -42,9 +42,9 @@ class InitializeGameTest(TestCase):
         message = {'op' : 'initializeGame'}
         answer = initializeGame(message)
 
-        assert('score' in answer)
-        assert('board' in answer)
-        assert('gameStatus' in answer)
+        self.assertTrue('score' in answer)
+        self.assertTrue('board' in answer)
+        self.assertTrue('gameStatus' in answer)
 
 
     def test_checkBoardKeys(self):
@@ -53,20 +53,20 @@ class InitializeGameTest(TestCase):
         answer = initializeGame(message)
         board = answer.get('board')
 
-        assert('columnCount' in board)
-        assert('rowCount' in board)
-        assert('grid' in board)
+        self.assertTrue('columnCount' in board)
+        self.assertTrue('rowCount' in board)
+        self.assertTrue('grid' in board)
 
     def test_checkFailedDictionaryKeys(self):
 
         message = {'op': 'initializeGame', 'columnCount': '3'}
         answer = initializeGame(message)
 
-        assert(answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
+        self.assertTrue(answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
 
-        assert('score' not in answer)
-        assert('board' not in answer)
-        assert('gameStatus' in answer)
+        self.assertTrue('score' not in answer)
+        self.assertTrue('board' not in answer)
+        self.assertTrue('gameStatus' in answer)
 
 
 #Checking boundaries for row and column count
@@ -76,48 +76,50 @@ class InitializeGameTest(TestCase):
         message = {'op': 'initializeGame', 'columnCount' : 100}
         answer = initializeGame(message)
 
-        assert(answer['gameStatus'] == 'underway')
-        assert(answer['board']['columnCount'] == 100)
+        self.assertTrue(answer['gameStatus'] == 'underway')
+        self.assertTrue(answer['board']['columnCount'] == 100)
 
         message = {'op': 'initializeGame', 'columnCount' : 101}
         answer = initializeGame(message)
 
-        assert (answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
+        self.assertTrue(answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
 
     def test_checkLowerBoundColumnCount(self):
 
         message = {'op': 'initializeGame', 'columnCount' : 2}
         answer = initializeGame(message)
 
-        assert(answer['gameStatus'] == 'underway')
-        assert(answer['board']['columnCount'] == 2)
+        self.assertTrue(answer['gameStatus'] == 'underway')
+        self.assertTrue(answer['board']['columnCount'] == 2)
 
         message = {'op': 'initializeGame', 'columnCount' : 1}
         answer = initializeGame(message)
 
-        assert (answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
+        self.assertTrue(answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
 
     def test_checkUpperBoundRowCount(self):
 
-        message = {'op': 'initializeGame', 'columnCount' : 100}
+        message = {'op': 'initializeGame', 'rowCount' : 100}
         answer = initializeGame(message)
 
         assert(answer['gameStatus'] == 'underway')
-        assert(answer['board']['columnCount'] == 100)
+        assert(answer['board']['rowCount'] == 100)
 
-        message = {'op': 'initializeGame', 'columnCount' : 101}
+        message = {'op': 'initializeGame', 'rowCount' : 101}
         answer = initializeGame(message)
+        assert(answer['gameStatus'] == 'error:  rowCount is not a valid number. ')
 
     def test_checkLowerBoundRowCount(self):
 
-        message = {'op': 'initializeGame', 'columnCount' : 2}
+        message = {'op': 'initializeGame', 'rowCount' : 2}
         answer = initializeGame(message)
 
         assert(answer['gameStatus'] == 'underway')
-        assert(answer['board']['columnCount'] == 2)
+        assert(answer['board']['rowCount'] == 2)
 
-        message = {'op': 'initializeGame', 'columnCount' : 1}
+        message = {'op': 'initializeGame', 'rowCount' : 1}
         answer = initializeGame(message)
+        assert(answer['gameStatus'] == 'error:  rowCount is not a valid number. ')
 
 
 #Checking that function in returning valid grid sizes
@@ -129,9 +131,9 @@ class InitializeGameTest(TestCase):
 
         grid = answer['board']['grid']
 
-        assert(len(grid) == 16)
-        assert(answer['board']['columnCount'] == 4)
-        assert(answer['board']['rowCount'] == 4)
+        self.assertTrue(len(grid) == 16)
+        self.assertTrue(answer['board']['columnCount'] == 4)
+        self.assertTrue(answer['board']['rowCount'] == 4)
 
 
 
@@ -142,9 +144,9 @@ class InitializeGameTest(TestCase):
 
         grid = answer['board']['grid']
 
-        assert(len(grid) == (4*5))
-        assert(answer['board']['columnCount'] == 5)
-        assert(answer['board']['rowCount'] == 4)
+        self.assertTrue(len(grid) == (4*5))
+        self.assertTrue(answer['board']['columnCount'] == 5)
+        self.assertTrue(answer['board']['rowCount'] == 4)
 
 
     def test_GridSize3(self):
@@ -154,9 +156,9 @@ class InitializeGameTest(TestCase):
 
         grid = answer['board']['grid']
 
-        assert(len(grid) == (4*7))
-        assert(answer['board']['columnCount'] == 4)
-        assert(answer['board']['rowCount'] == 7)
+        self.assertTrue(len(grid) == (4*7))
+        self.assertTrue(answer['board']['columnCount'] == 4)
+        self.assertTrue(answer['board']['rowCount'] == 7)
 
     def test_GridSize3(self):
 
@@ -165,6 +167,58 @@ class InitializeGameTest(TestCase):
 
         grid = answer['board']['grid']
 
-        assert(len(grid) == (2*7))
-        assert(answer['board']['columnCount'] == 2)
-        assert(answer['board']['rowCount'] == 7)
+        self.assertTrue(len(grid) == (2*7))
+        self.assertTrue(answer['board']['columnCount'] == 2)
+        self.assertTrue(answer['board']['rowCount'] == 7)
+
+
+#test grid contents
+
+    def test_gridContents1(self):
+
+        message = {'op':'initializeGame'}
+        answer = initializeGame(message)
+
+        grid = answer['board']['grid']
+
+        count = 0;
+
+        for e in grid:
+            if (e != 0):
+                count = count + 1
+
+        self.assertTrue(count == 2)
+
+    #This test will attempt to check that 1 and 2 appear with correct probability
+    def test_gridContents2(self):
+        message = {'op': 'initializeGame'}
+
+        numberOfOnes = 0
+        numberOfTwos = 0
+        i = 0
+        numberOfTests = 10000
+
+        def elementsWithValue(array, value):
+            count = 0
+            for e in array:
+                if (e == value):
+                    count = count + 1
+
+            return count
+
+
+        while (i < numberOfTests):
+            i = i + 1
+            answer = initializeGame(message)
+            grid = answer['board']['grid']
+
+            numberOfOnes = numberOfOnes + elementsWithValue(grid, 1)
+            numberOfTwos = numberOfTwos + elementsWithValue(grid, 2)
+
+        self.assertTrue(numberOfOnes + numberOfTwos == numberOfTests * 2)
+
+        self.assertAlmostEqual(numberOfOnes / (numberOfTests * 2), 0.75, 1)
+
+
+
+
