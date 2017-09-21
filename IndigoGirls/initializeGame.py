@@ -6,16 +6,27 @@
     Purpose of File:
         To implement the initalizeGame function
 
-    todo: finish description
-
 '''
+
+# InitializeGame takes the messageDictionary from dispatch and uses the
+# information to create a dictionary containing the initial game state.
+#
+# In the messageDictionary, the function specificaly checks for a user
+# specified rowCount and columnCount. Both of these values are unverified.
+#
+#
+# See initializeGameTest.py for comments related to the allowed inputs
+
 
 import random
 
-
 def initializeGame(messageDictionary):
 
+    #------------------------------------------
+    #           HELPER FUNCTIONS
+    # -----------------------------------------
 
+    #Function is used to simplify the validity check for both rowCount and columnCount
     def isNotValidNumber(x):
         if (type(x) is not int):
             return True
@@ -25,60 +36,7 @@ def initializeGame(messageDictionary):
 
         return False
 
-
-    columnCount = 4
-    rowCount = 4
-    errorMessage = ''
-    functionError = False
-
-
-    if ('columnCount' in messageDictionary):
-        columnCount = messageDictionary['columnCount']
-
-        if isNotValidNumber(columnCount):
-            functionError = True
-            errorMessage = errorMessage + 'columnCount is not a valid number. '
-
-    if ('rowCount' in messageDictionary):
-        rowCount = messageDictionary['rowCount']
-
-        if isNotValidNumber(rowCount):
-            functionError = True
-            errorMessage = errorMessage + 'rowCount is not a valid number. '
-
-
-
-    gameMessage = {}
-
-
-    #This is where the function should end if the input is invalid
-    if (functionError):
-        errorMessage = "error:  " + errorMessage
-        gameMessage['gameStatus'] = errorMessage
-        return gameMessage
-
-    #Remaining code sets the board and returns all the data associated with a
-    #properly initialized game.
-
-
-    gridSize = columnCount * rowCount
-    grid = [0] * (gridSize) #Python, your syntax is so weird
-
-
-    piecePlacement = [0,0]
-
-
-
-    piecePlacement[0] = random.randint(0, gridSize - 1)
-    piecePlacement[1] = random.randint(0, gridSize - 1)
-
-
-    #Account for possibility that both pieces could be placed on same tile
-    while (piecePlacement[1] == piecePlacement[0]):
-        piecePlacement[1] = random.randint(0, gridSize - 1)
-
-
-    #function to generate the random values for the initial pieces
+    #function used to generate the random values for the initial pieces
     def makeInitialPiece():
         value = random.randint(0,3)
         if (value == 3):
@@ -86,11 +44,77 @@ def initializeGame(messageDictionary):
         else:
             return 1
 
-    #Sets the pieces on the board with their initial values
+    # -----------------------------------------
+    #       VALIDITY CHECK FOR INPUTS
+    # -----------------------------------------
+
+    # -----------------------------------------
+    # Variables used in function that are needed during Validity check
+    columnCount = 4
+    rowCount = 4
+    errorMessage = ''
+    functionErrorFlag = False
+    gameMessage = {}
+
+
+    # -----------------------------------------
+    # Check columnCount validity
+    if ('columnCount' in messageDictionary):
+        columnCount = messageDictionary['columnCount']
+
+        if isNotValidNumber(columnCount):
+            functionErrorFlag = True
+            errorMessage = errorMessage + 'columnCount is not a valid number. '
+
+    # -----------------------------------------
+    # Check the rowCount validity
+    if ('rowCount' in messageDictionary):
+        rowCount = messageDictionary['rowCount']
+
+        if isNotValidNumber(rowCount):
+            functionErrorFlag = True
+            errorMessage = errorMessage + 'rowCount is not a valid number. '
+
+    # -----------------------------------------
+    # Function return if functionErrorFlag is set
+    if (functionErrorFlag):
+        errorMessage = "error:  " + errorMessage
+        gameMessage['gameStatus'] = errorMessage
+        return gameMessage
+
+
+
+
+    # -----------------------------------------
+    #         GAME INITIALIZATION CODE
+    # -----------------------------------------
+
+    # -----------------------------------------
+    #remaining variables used for game initialization
+    gridSize = columnCount * rowCount
+    grid = [0] * (gridSize) #Python, your syntax is so weird
+    piecePlacement = [0,0]
+
+
+    # -----------------------------------------
+    # Determine where initial game pieces will go
+
+    piecePlacement[0] = random.randint(0, gridSize - 1)
+    piecePlacement[1] = random.randint(0, gridSize - 1)
+
+    # Account for possibility that both pieces could be placed on the same tile
+    while (piecePlacement[1] == piecePlacement[0]):
+        piecePlacement[1] = random.randint(0, gridSize - 1)
+
+
+    # -----------------------------------------
+    # Sets the pieces on the board with their initial values
     grid[piecePlacement[0]] = makeInitialPiece()
     grid[piecePlacement[1]] = makeInitialPiece()
 
 
+    # -----------------------------------------
+    # Prepare gameMessage with outgoing game data
     gameMessage['score'] = 0
     gameMessage['board'] = {'columnCount': columnCount, 'rowCount' : rowCount, 'grid' : grid }
     gameMessage['gameStatus'] = 'underway'
