@@ -42,9 +42,9 @@ class InitializeGameTest(TestCase):
         message = {'op' : 'initializeGame'}
         answer = initializeGame(message)
 
-        assert('score' in message)
-        assert('board' in message)
-        assert('gameStatus' in message)
+        assert('score' in answer)
+        assert('board' in answer)
+        assert('gameStatus' in answer)
 
 
     def test_checkBoardKeys(self):
@@ -59,11 +59,112 @@ class InitializeGameTest(TestCase):
 
     def test_checkFailedDictionaryKeys(self):
 
-        message = {'op': 'initializeGame'}
+        message = {'op': 'initializeGame', 'columnCount': '3'}
         answer = initializeGame(message)
+
+        assert(answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
 
         assert('score' not in answer)
         assert('board' not in answer)
         assert('gameStatus' in answer)
 
 
+#Checking boundaries for row and column count
+
+    def test_checkUpperBoundColumnCount(self):
+
+        message = {'op': 'initializeGame', 'columnCount' : 100}
+        answer = initializeGame(message)
+
+        assert(answer['gameStatus'] == 'underway')
+        assert(answer['board']['columnCount'] == 100)
+
+        message = {'op': 'initializeGame', 'columnCount' : 101}
+        answer = initializeGame(message)
+
+        assert (answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
+
+    def test_checkLowerBoundColumnCount(self):
+
+        message = {'op': 'initializeGame', 'columnCount' : 2}
+        answer = initializeGame(message)
+
+        assert(answer['gameStatus'] == 'underway')
+        assert(answer['board']['columnCount'] == 2)
+
+        message = {'op': 'initializeGame', 'columnCount' : 1}
+        answer = initializeGame(message)
+
+        assert (answer['gameStatus'] == 'error:  columnCount is not a valid number. ')
+
+    def test_checkUpperBoundRowCount(self):
+
+        message = {'op': 'initializeGame', 'columnCount' : 100}
+        answer = initializeGame(message)
+
+        assert(answer['gameStatus'] == 'underway')
+        assert(answer['board']['columnCount'] == 100)
+
+        message = {'op': 'initializeGame', 'columnCount' : 101}
+        answer = initializeGame(message)
+
+    def test_checkLowerBoundRowCount(self):
+
+        message = {'op': 'initializeGame', 'columnCount' : 2}
+        answer = initializeGame(message)
+
+        assert(answer['gameStatus'] == 'underway')
+        assert(answer['board']['columnCount'] == 2)
+
+        message = {'op': 'initializeGame', 'columnCount' : 1}
+        answer = initializeGame(message)
+
+
+#Checking that function in returning valid grid sizes
+
+    def test_GridSize1(self):
+
+        message = {'op': 'initializeGame'}
+        answer = initializeGame(message)
+
+        grid = answer['board']['grid']
+
+        assert(len(grid) == 16)
+        assert(answer['board']['columnCount'] == 4)
+        assert(answer['board']['rowCount'] == 4)
+
+
+
+    def test_GridSize2(self):
+
+        message = {'op': 'initializeGame', 'columnCount' : 5}
+        answer = initializeGame(message)
+
+        grid = answer['board']['grid']
+
+        assert(len(grid) == (4*5))
+        assert(answer['board']['columnCount'] == 5)
+        assert(answer['board']['rowCount'] == 4)
+
+
+    def test_GridSize3(self):
+
+        message = {'op': 'initializeGame', 'rowCount' : 7}
+        answer = initializeGame(message)
+
+        grid = answer['board']['grid']
+
+        assert(len(grid) == (4*7))
+        assert(answer['board']['columnCount'] == 4)
+        assert(answer['board']['rowCount'] == 7)
+
+    def test_GridSize3(self):
+
+        message = {'op': 'initializeGame', 'columnCount': 2, 'rowCount' : 7}
+        answer = initializeGame(message)
+
+        grid = answer['board']['grid']
+
+        assert(len(grid) == (2*7))
+        assert(answer['board']['columnCount'] == 2)
+        assert(answer['board']['rowCount'] == 7)
