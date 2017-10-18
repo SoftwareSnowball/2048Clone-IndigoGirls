@@ -13,13 +13,15 @@
 class ElementLine:
 
     #Grid will hold reference to a matrix
-    grid = []
-    #stride will represent the absolute value of the number needed to reach the next element in the array
-    stride = 0
-    length = 0
-    direction = 0
+    _grid = []
+    #The starting element of the line. Every other line member will be accessed relative to this index.
+    _initialIndex = 0
+    #stride will be the distance traveledbto reach the next element in the line
+    _stride = 0
+    #Number of elements in the Element Line
+    _length = 0
 
-    def __init__(self, board, row_or_column, line_number, direction):
+    def __init__(self, board, direction, line_number):
         pass
 
 
@@ -29,5 +31,8 @@ class ElementLine:
 
     def setElement(self, index, element):
         pass
+
+    def getLength(self):
+        return self._length
 
 
