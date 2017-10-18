@@ -43,7 +43,16 @@ class ElementLine:
         return realIndex
 
     def getElement(self, index):
-        pass
+
+        if (index >= self._length or index < 0):
+            return "Error: Index out of bounds"
+
+
+        realIndex = self._transform(index)
+
+        element = self._grid[realIndex]
+
+        return element
 
 
     def setElement(self, index, element):
