@@ -77,7 +77,7 @@ class ElementLineTest(TestCase):
         self.assertEqual(testLine._length, 4)
 
 
-    def test_ElementLineInit_03(self):
+    def test_ElementLineInit_04(self):
 
 
         board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
@@ -92,7 +92,20 @@ class ElementLineTest(TestCase):
         self.assertEqual(testLine._length, 2)
 
 
-    # Function getElement(self, board, direction, line_number)
+    def test_ElementLineInit_05(self):
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "up"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine._grid, board["grid"])
+        self.assertEqual(testLine._initialIndex, 1 + 4)
+        self.assertEqual(testLine._stride, -4)
+        self.assertEqual(testLine._length, 2)
+
+
+    # Function getElement(self, index)
     #
     # inputs:
     #       index - The location in the line of the desired element
@@ -114,6 +127,7 @@ class ElementLineTest(TestCase):
 
         self.assertEqual(testLine.getElement(4), 4)
         self.assertEqual(testLine.getElement(2), 2)
+        self.assertEqual(testLine.getElement(5), "Error: Index out of bounds")
 
 
     def test_getElement_02(self):
@@ -126,6 +140,7 @@ class ElementLineTest(TestCase):
 
         self.assertEqual(testLine.getElement(0), 4)
         self.assertEqual(testLine.getElement(3), 7)
+        self.assertEqual(testLine.getElement(5), "Error: Index out of bounds")
 
     def test_getElement_03(self):
 
@@ -137,6 +152,7 @@ class ElementLineTest(TestCase):
 
         self.assertEqual(testLine.getElement(0), 7)
         self.assertEqual(testLine.getElement(3), 4)
+        self.assertEqual(testLine.getElement(4), "Error: Index out of bounds")
 
 
     def test_getElement_04(self):
@@ -149,3 +165,57 @@ class ElementLineTest(TestCase):
 
         self.assertEqual(testLine.getElement(4), 0)
         self.assertEqual(testLine.getElement(2), 2)
+        self.assertEqual(testLine.getElement(5), "Error: Index out of bounds")
+
+
+    def test_getElement_05(self):
+
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "down"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+
+        self.assertEqual(testLine.getElement(0), 1)
+        self.assertEqual(testLine.getElement(1), 5)
+        self.assertEqual(testLine.getElement(3), "Error: Index out of bounds")
+
+    def test_getElement_06(self):
+
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "up"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+
+        self.assertEqual(testLine.getElement(0), 5)
+        self.assertEqual(testLine.getElement(1), 1)
+        self.assertEqual(testLine.getElement(3), "Error: Index out of bounds")
+
+
+
+    # Function setElement(self, index, element)
+    #
+    # inputs:
+    #       index - The location in the line of the desired element
+    #       element - The value that should be written to the location at the index
+    #
+    # outputs:
+    #       nothing
+    #
+    #
+    # affects:
+    #       grid
+
+    def test_setElement_01(self):
+
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "up"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+        testLine.setElement(0, 10)
+
+        self.assertEqual(board["grid"][5], 10)

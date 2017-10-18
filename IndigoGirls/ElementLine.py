@@ -24,25 +24,30 @@ class ElementLine:
     def __init__(self, board, direction, lineNumber):
     #decision: The lineNumber will go from 0 to columnCount - 1 or rowCount - 1
         self._grid = board["grid"]
-        self._length = board["columnCount"]
-
-#        if (direction == "up" or direction == "right"):
-#            directionSign = 1
-#        else:
-#            directionSign = -1
-
-        col = board["columnCount"]
-        row = board["rowCount"]
 
 
+        columns = board["columnCount"]
+        rows = board["rowCount"]
 
         if (direction == "right"):
-            self._initialIndex = col * lineNumber
+            self._initialIndex = columns * lineNumber
             self._stride = 1
+            self._length = columns
 
         if (direction == "left"):
-            self._initialIndex = (col * lineNumber) + (col - 1)
+            self._initialIndex = (columns * lineNumber) + (columns - 1)
             self._stride = -1
+            self._length = columns
+
+        if (direction == "down"):
+            self._initialIndex = lineNumber
+            self._stride = columns
+            self._length = rows
+
+        if (direction == "up"):
+            self._initialIndex = lineNumber + columns * (rows - 1)
+            self._stride = -columns
+            self._length = rows
 
 
 
