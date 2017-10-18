@@ -1,5 +1,6 @@
 '''
-    Created on October 17, 2017
+    Created  on October 17, 2017
+    Modified on October 18, 2017
 
     @Author: James Malloy
 
@@ -25,7 +26,6 @@ class ElementLine:
     #decision: The lineNumber will go from 0 to columnCount - 1 or rowCount - 1
         self._grid = board["grid"]
 
-
         columns = board["columnCount"]
         rows = board["rowCount"]
 
@@ -49,14 +49,12 @@ class ElementLine:
             self._stride = -columns
             self._length = rows
 
-
-
-
     def _transform(self, index):
         realIndex = self._initialIndex
         realIndex += self._stride * index
 
         return realIndex
+
 
     def getElement(self, index):
 
@@ -75,6 +73,7 @@ class ElementLine:
 
         realIndex = self._transform(index)
         self._grid[realIndex] = element
+
 
     def getLength(self):
         return self._length
