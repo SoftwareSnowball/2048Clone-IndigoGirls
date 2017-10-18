@@ -21,18 +21,29 @@ class ElementLine:
     #Number of elements in the Element Line
     _length = 0
 
-    def __init__(self, board, direction, line_number):
-
+    def __init__(self, board, direction, lineNumber):
+    #decision: The lineNumber will go from 0 to columnCount - 1 or rowCount - 1
         self._grid = board["grid"]
         self._length = board["columnCount"]
 
+#        if (direction == "up" or direction == "right"):
+#            directionSign = 1
+#        else:
+#            directionSign = -1
+
+        col = board["columnCount"]
+        row = board["rowCount"]
+
+
+
         if (direction == "right"):
-            self._initialIndex = 0
+            self._initialIndex = col * lineNumber
             self._stride = 1
 
         if (direction == "left"):
-            self._initialIndex = board["columnCount"] - 1
+            self._initialIndex = (col * lineNumber) + (col - 1)
             self._stride = -1
+
 
 
 
@@ -47,9 +58,7 @@ class ElementLine:
         if (index >= self._length or index < 0):
             return "Error: Index out of bounds"
 
-
         realIndex = self._transform(index)
-
         element = self._grid[realIndex]
 
         return element

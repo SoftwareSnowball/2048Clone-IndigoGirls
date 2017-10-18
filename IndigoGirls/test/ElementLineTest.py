@@ -18,6 +18,7 @@ class ElementLineTest(TestCase):
         #               already verified
         #       direction - up, down, left, or right; verified
         #       lineNumber - the column or row that is being abstracted from the grid
+        #                    CAUTION: IT WAS DECIDED THAT THE NUMBERING WILL START FROM 0
         #
         #outputs:
         #       ElementLine object
@@ -37,29 +38,58 @@ class ElementLineTest(TestCase):
 
         board = {"grid": [0,1,2,3,4], "rowCount": 1, "columnCount": 5}
         direction = "right"
-        lineNumber = 1
+        lineNumber = 0
 
-        test_line = ElementLine(board, direction, lineNumber)
+        testLine = ElementLine(board, direction, lineNumber)
 
-        self.assertEqual(test_line._grid, board["grid"])
-        self.assertEqual(test_line._initialIndex, 0)
-        self.assertEqual(test_line._stride, 1)
-        self.assertEqual(test_line._length, 5)
+        self.assertEqual(testLine._grid, board["grid"])
+        self.assertEqual(testLine._initialIndex, 0)
+        self.assertEqual(testLine._stride, 1)
+        self.assertEqual(testLine._length, 5)
 
 
     def test_ElementLineInit_02(self):
 
         board = {"grid": [0, 1, 2, 3, 4], "rowCount": 1, "columnCount": 5}
         direction = "left"
+        lineNumber = 0
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine._grid, board["grid"])
+        self.assertEqual(testLine._initialIndex, board["columnCount"] - 1)
+        self.assertEqual(testLine._stride, -1)
+        self.assertEqual(testLine._length, 5)
+
+
+    def test_ElementLineInit_03(self):
+
+
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "left"
         lineNumber = 1
 
-        test_line = ElementLine(board, direction, lineNumber)
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine._grid, board["grid"])
+        self.assertEqual(testLine._initialIndex, 7)
+        self.assertEqual(testLine._stride, -1)
+        self.assertEqual(testLine._length, 4)
 
 
-        self.assertEqual(test_line._grid, board["grid"])
-        self.assertEqual(test_line._initialIndex, board["columnCount"] - 1)
-        self.assertEqual(test_line._stride, -1)
-        self.assertEqual(test_line._length, 5)
+    def test_ElementLineInit_03(self):
+
+
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "down"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine._grid, board["grid"])
+        self.assertEqual(testLine._initialIndex, 1)
+        self.assertEqual(testLine._stride, 4)
+        self.assertEqual(testLine._length, 2)
 
 
     # Function getElement(self, board, direction, line_number)
@@ -78,9 +108,44 @@ class ElementLineTest(TestCase):
 
         board = {"grid": [0, 1, 2, 3, 4], "rowCount": 1, "columnCount": 5}
         direction = "right"
-        lineNumber = 1
+        lineNumber = 0
 
         testLine = ElementLine(board, direction, lineNumber)
 
         self.assertEqual(testLine.getElement(4), 4)
+        self.assertEqual(testLine.getElement(2), 2)
+
+
+    def test_getElement_02(self):
+
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "right"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine.getElement(0), 4)
+        self.assertEqual(testLine.getElement(3), 7)
+
+    def test_getElement_03(self):
+
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "left"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine.getElement(0), 7)
+        self.assertEqual(testLine.getElement(3), 4)
+
+
+    def test_getElement_04(self):
+
+        board = {"grid": [0, 1, 2, 3, 4], "rowCount": 1, "columnCount": 5}
+        direction = "left"
+        lineNumber = 0
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine.getElement(4), 0)
         self.assertEqual(testLine.getElement(2), 2)
