@@ -215,9 +215,10 @@ class InitializeGameTest(TestCase):
             numberOfOnes = numberOfOnes + elementsWithValue(grid, 1)
             numberOfTwos = numberOfTwos + elementsWithValue(grid, 2)
 
+
         self.assertTrue(numberOfOnes + numberOfTwos == numberOfTests * 2)
 
-        self.assertAlmostEqual(numberOfOnes / (numberOfTests * 2), 0.75, 1)
+        self.assertAlmostEqual((float(numberOfOnes) / float(numberOfTests * 2)), 0.75, 1)
 
 
 
