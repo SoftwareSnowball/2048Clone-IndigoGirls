@@ -1,0 +1,23 @@
+Tasks needed:
+    Be able to perform the swipe operation in any direction
+    Check that swipe direction is valid
+    Returns gamestatus error if nothing is changed on the board
+
+
+Propose Data structure:
+    line_element - an abstraction which can represent a line or a column in either direction.
+                    The purpose of this construct is to abstract the process of swiping so that
+                    direction agnostic swipe code can be written.
+
+
+High Level Design
+
+    Swipe:
+            Will be the basic function called by dispatch and will return the finished board
+            or game status error.
+
+    create_line_element:
+            Will create a line element representing a given row or column with appropriate direction
+            The line element should hold a pointer to the actual grid structure so that changes made
+            through the line_element will be reflected in the grid.
+
