@@ -22,18 +22,25 @@ class ElementLine:
     _length = 0
 
     def __init__(self, board, direction, line_number):
+
         self._grid = board["grid"]
-        self._initialIndex = 0
-        self._stride = 1
         self._length = board["columnCount"]
+
+        if (direction == "right"):
+            self._initialIndex = 0
+            self._stride = 1
+
+        if (direction == "left"):
+            self._initialIndex = board["columnCount"] - 1
+            self._stride = -1
 
 
 
     def _transform(self, index):
-        real_index = self._initialIndex
-        real_index += self._stride * index
+        realIndex = self._initialIndex
+        realIndex += self._stride * index
 
-        return real_index
+        return realIndex
 
     def getElement(self, index):
         pass
