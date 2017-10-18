@@ -70,7 +70,11 @@ class ElementLine:
 
 
     def setElement(self, index, element):
-        pass
+
+        realIndex = self._transform(index)
+
+        realIndex = self._transform(index)
+        self._grid[realIndex] = element
 
     def getLength(self):
         return self._length
