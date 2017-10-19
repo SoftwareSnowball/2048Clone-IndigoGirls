@@ -17,7 +17,7 @@ class ElementLine:
     _grid = []
     #The starting element of the line. Every other line member will be accessed relative to this index.
     _initialIndex = 0
-    #stride will be the distance traveledbto reach the next element in the line
+    #stride will is the distance travelled to reach the next element in the line
     _stride = 0
     #Number of elements in the Element Line
     _length = 0
@@ -48,6 +48,7 @@ class ElementLine:
             self._initialIndex = lineNumber + columns * (rows - 1)
             self._stride = -columns
             self._length = rows
+
 
     def _transform(self, index):
         realIndex = self._initialIndex

@@ -17,7 +17,7 @@ class ElementLineTest(TestCase):
         #       board - a dictionary containing the grid, number of columns, number of rows
         #               already verified
         #       direction - up, down, left, or right; verified
-        #       lineNumber - the column or row that is being abstracted from the grid
+        #       lineNumber - the column or row that is being abstracted from the grid, verified
         #                    CAUTION: IT WAS DECIDED THAT THE NUMBERING WILL START FROM 0
         #
         #outputs:
@@ -219,3 +219,14 @@ class ElementLineTest(TestCase):
         testLine.setElement(0, 10)
 
         self.assertEqual(board["grid"][5], 10)
+
+
+
+    def test_getLength(self):
+        board = {"grid": [0, 1, 2, 3, 4, 5, 6, 7], "rowCount": 2, "columnCount": 4}
+        direction = "up"
+        lineNumber = 1
+
+        testLine = ElementLine(board, direction, lineNumber)
+
+        self.assertEqual(testLine.getLength(), testLine._length)
