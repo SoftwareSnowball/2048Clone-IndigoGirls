@@ -1,5 +1,6 @@
 import json
 from IndigoGirls.initializeGame import initializeGame
+from IndigoGirls.swipe import swipe
 
 def dispatch(messageJson=None):
     """
@@ -44,6 +45,8 @@ def dispatch(messageJson=None):
     #  output of each function:  a dictionary containing name-value pairs to be encoded as a JSON string
     if(messageDictionary[u"op"] == u"initializeGame"):
         resultDictionary = initializeGame(messageDictionary)
+    elif(messageDictionary[u"op"] == u"swipe"):
+        resultDictionary = swipe(messageDictionary)
     else:
         resultDictionary = buildErrorString('op is invalid')
 

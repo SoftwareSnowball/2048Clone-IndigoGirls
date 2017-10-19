@@ -118,7 +118,7 @@ def deterministicSwipe(input):
     board = input["board"]
     direction = input["direction"]
 
-    errorMessage = "Error: "
+    errorMessage = "error: "
     error = False
 
     if (type(direction) is not str):
@@ -168,6 +168,11 @@ def deterministicSwipe(input):
         didBoardChange |= mergeResults["didBoardChange"]
         score += mergeResults["score"]
 
-    answer = {"board": board, "score": score}
+    if (didBoardChange == False):
+
+        return {"gameStatus": "error No tiles can be shifted"}
+
+
+    answer = {"board": board, "score": score, "gameStatus": "underway"}
 
     return answer
