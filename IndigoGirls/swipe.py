@@ -14,6 +14,9 @@ from IndigoGirls.ElementLine import ElementLine
 
 def swipe(input):
 
+    #------------------------------------------------------------#
+    #HELPER FUNCTIONS
+
     #Function is used to simplify the validity check for both rowCount and columnCount
     #This function is also declared in initializeGame.
     #TODO: refactor this into its own file
@@ -26,7 +29,10 @@ def swipe(input):
 
         return False
 
-    #Moves all tiles as far as it can without merging
+
+
+
+    #Moves all tiles as far right as it can without merging
     #returns true if a tile was moved. False otherwise
     def sweep(elementLine):
 
@@ -44,7 +50,7 @@ def swipe(input):
         if (lastEmpty == -1):
             return False
 
-        didWeMovedSomething = False
+        didBoardChange = False
         index = lastEmpty
 
         while (index >= 0 ):
@@ -52,12 +58,59 @@ def swipe(input):
             if (elementLine.getElement(index) != 0 ):
                 elementLine.swap(index, lastEmpty)
                 lastEmpty -= 1
-                didWeMovedSomething = True
+                didBoardChange = True
 
             index -= 1
 
-        return didWeMovedSomething
+        return didBoardChange
 
+    #Merges tiles to the right of the array.
+    #Returns a dictionary containing "score" and "didBoardChange"
+    #As a precondition there must be no empty spaces to the right of any tile
+    #Algorithm:
+    #   index = next to last index
+    #
+    #   while there is an element at index and index GE 0
+    #
+    #       if can merge with next element then merge
+    #       decrement index
+    #
+    #   sweep the element line
+    #
+    #   return
+    #
+    #This should never merge anything twice since after a merge the next index will contain 0
+    #
+    #
+    #
+    #
+    def merge(elementLine):
+
+        index = elementLine.getLength() - 2
+        result = {"didBoardChange": 0, "score": 0}
+        #TODO: add score system
+
+        while (index >= 0 and elementLine.getElement(index) != 0):
+
+            prev = elementLine.getElement(index + 1)
+            current = elementLine.getElement(index)
+
+            if (prev == current):
+
+                elementLine.setElement(index + 1, current + 1)
+                elementLine.setElement(index, 0)
+                result["didBoardChange"] = True
+
+            index -= 1
+
+        #TODO: refactor
+        #TODO: move sweep the end sweep outside the function or move the initial sweep to the start of the function
+        sweep(elementLine)
+
+        return result
+
+    #END OF HELPER FUNCTION CODE
+    # ------------------------------------------------------------#
 
 
     board = input["board"]
@@ -94,15 +147,22 @@ def swipe(input):
 
 
     elementLines = []
-
     index = 0
-    numberOfLines = board["rowCount"]
+    didBoardChange = False
+
+    if (direction == "left" or direction == "right"):
+        numberOfLines = board["rowCount"]
+    else:
+        numberOfLines = board["columnCount"]
+
     while (index < numberOfLines):
         elementLines.append(ElementLine(board, direction, index))
         index += 1
 
     for elementLine in elementLines:
-        sweep(elementLine)
+        didBoardChange |= sweep(elementLine)
+        mergeResults = merge(elementLine)
+        didBoardChange |= mergeResults["didBoardChange"]
 
     answer = {"board": board}
 
