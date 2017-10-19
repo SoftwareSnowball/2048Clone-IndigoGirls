@@ -180,3 +180,44 @@ class SwipeTest(TestCase):
         output = swipe(input)
 
         self.assertEqual([1,0,0,0], output["board"]["grid"])
+
+
+    def test_swipe_FunctionalTest02(self):
+        columnCount = 2
+        rowCount = 4
+        grid = [0, 1, 1, 0, 1, 0, 0, 0]
+        direction = "right"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        self.assertEqual([0, 1, 0, 1, 0, 1, 0, 0], output["board"]["grid"])
+
+    def test_swipe_FunctionalTest03(self):
+        columnCount = 4
+        rowCount = 2
+        grid = [1, 2, 3, 0, 1, 2, 0, 0]
+        direction = "right"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        self.assertEqual([0, 1, 2, 3, 0, 0, 1, 2], output["board"]["grid"])
+
+
+    def test_swipe_FunctionalTest03(self):
+        columnCount = 2
+        rowCount = 4
+        grid = [1, 4, 3, 0, 1, 2, 0, 0]
+        direction = "down"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        self.assertEqual([0, 0, 1, 0, 3, 4, 1, 2], output["board"]["grid"])

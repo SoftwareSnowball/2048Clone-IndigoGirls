@@ -26,6 +26,38 @@ def swipe(input):
 
         return False
 
+    #Moves all tiles as far as it can without merging
+    #returns true if a tile was moved. False otherwise
+    def sweep(elementLine):
+
+        lastEmpty = -1
+        index = elementLine.getLength() - 1
+
+        #find last empty index
+        while (index >= 0 and lastEmpty == -1) :
+            if (elementLine.getElement(index) == 0 ):
+                lastEmpty = index
+
+            index -= 1
+
+        #List is full and nothing can be swept
+        if (lastEmpty == -1):
+            return False
+
+        didWeMovedSomething = False
+        index = lastEmpty
+
+        while (index >= 0 ):
+
+            if (elementLine.getElement(index) != 0 ):
+                elementLine.swap(index, lastEmpty)
+                lastEmpty -= 1
+                didWeMovedSomething = True
+
+            index -= 1
+
+        return didWeMovedSomething
+
 
 
     board = input["board"]
@@ -63,12 +95,14 @@ def swipe(input):
 
     elementLines = []
 
-    elementLines.append(ElementLine(board, direction, 0))
-    elementLines.append(ElementLine(board, direction, 1))
+    index = 0
+    numberOfLines = board["rowCount"]
+    while (index < numberOfLines):
+        elementLines.append(ElementLine(board, direction, index))
+        index += 1
 
-    elementLine = elementLines[0]
-    elementLine.setElement(0, 0)
-    elementLine.setElement(1, 1)
+    for elementLine in elementLines:
+        sweep(elementLine)
 
     answer = {"board": board}
 

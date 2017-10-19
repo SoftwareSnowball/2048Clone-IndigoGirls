@@ -76,6 +76,13 @@ class ElementLine:
         self._grid[realIndex] = element
 
 
+    def swap(self, index1, index2):
+
+        ValueFrom1 = self.getElement(index1)
+        self.setElement(index1, self.getElement(index2))
+        self.setElement(index2, ValueFrom1)
+
+
     def getLength(self):
         return self._length
 
