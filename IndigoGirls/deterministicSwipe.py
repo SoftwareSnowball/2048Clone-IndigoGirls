@@ -6,7 +6,8 @@
 
     Purpose of File:
         Holds deterministicSwipe function which performs the swipe task in the game.
-        This function does not add the random tile to the board.
+        This function does not add the random tile to the board. As such the result for a given
+        input should always be the same making it possible to test this mechanism more thoroughly
 
 '''
 
@@ -17,21 +18,6 @@ def deterministicSwipe(input):
 
     #------------------------------------------------------------#
     #HELPER FUNCTIONS
-
-    #Function is used to simplify the validity check for both rowCount and columnCount
-    #This function is also declared in initializeGame.
-    #TODO: refactor this into its own file
-    def isNotValidNumber(x):
-        if (type(x) is not int):
-            return True
-
-        if ((x <= 1) or (x > 100)):
-            return True
-
-        return False
-
-
-
 
     #Moves all tiles as far right as it can without merging
     #returns true if a tile was moved. False otherwise
@@ -118,32 +104,7 @@ def deterministicSwipe(input):
     board = input["board"]
     direction = input["direction"]
 
-    errorMessage = "error: "
-    error = False
 
-    if (type(direction) is not str):
-        errorMessage += "Direction must be string. "
-        error = True
-
-    if (direction is not "up" and direction is not "down" and direction is not "left" and direction is not "right"):
-        errorMessage += "Direction not recognized. "
-        error = True
-
-    if (isNotValidNumber(board["rowCount"])):
-        errorMessage += "rowCount is invalid. "
-        error = True
-
-    if (isNotValidNumber((board["columnCount"]))):
-        errorMessage += "columnCount is invalid. "
-        error = True
-
-    if (error):
-        return {"gameStatus": errorMessage}
-
-    # I don't want this code to run if rowCount or columnCount is not valid because it could cause an exception
-    if (len(board["grid"]) != board["rowCount"] * board["columnCount"]):
-        errorMessage += "Grid size is invalid. "
-        return {"gameStatus": errorMessage}
 
     # At this point everything should be valid.
 
