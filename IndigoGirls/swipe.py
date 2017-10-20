@@ -39,11 +39,16 @@ def swipe(input):
         direction = input["direction"]
         board = input["board"]
 
+
+        if (type(direction) is unicode):
+            direction = direction.encode('ascii', 'ignore')
+
+
         if (type(direction) is not str):
             errorMessage += "Direction must be string. "
             error = True
 
-        if (direction is not "up" and direction is not "down" and direction is not "left" and direction is not "right"):
+        if (direction != 'up' and direction != 'down' and direction != 'left' and direction != 'right'):
             errorMessage += "Direction not recognized. "
             error = True
 
@@ -75,7 +80,7 @@ def swipe(input):
         return results
 
 
-    operationSuccess  = placeTile(input["board"])
+    operationSuccess  = placeTile(input["board"]["grid"])
     if (operationSuccess == False):
         return {"gameStatus": "error A new tile could not be placed after swiping."}
 

@@ -144,9 +144,9 @@ class swipeTest(TestCase):
         self.assertTrue("Grid size is invalid" in output["gameStatus"])
 
     def test_swipe_Unmovable01(self):
-        columnCount = 4
+        columnCount = 2
         rowCount = 2
-        grid = [1, 3, 4, 0, 2, 3, 0, 0]
+        grid = [1, 0, 4, 0]
         direction = "left"
 
         board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
@@ -155,3 +155,93 @@ class swipeTest(TestCase):
         output = swipe(input)
 
         self.assertTrue("error" in output["gameStatus"])
+
+
+    def test_swipe_Normal01(self):
+        columnCount = 2
+        rowCount = 2
+        grid = [0, 1, 0, 1]
+        direction = "left"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        grid = output["board"]["grid"]
+
+        self.assertEquals(grid[0], 1)
+        self.assertEquals(grid[2], 1)
+        self.assertEquals(output["score"], 0)
+        self.assertTrue(grid[1] != 0 or grid[3] != 0)
+
+    def test_swipe_Normal02(self):
+        columnCount = 2
+        rowCount = 2
+        grid = [1, 0, 1, 0]
+        direction = "right"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        grid = output["board"]["grid"]
+
+        self.assertEquals(grid[1], 1)
+        self.assertEquals(grid[3], 1)
+        self.assertEquals(output["score"], 0)
+        self.assertTrue(grid[0] != 0 or grid[2] != 0)
+
+
+    def test_swipe_Normal03(self):
+        columnCount = 2
+        rowCount = 2
+        grid = [0, 0, 1, 1]
+        direction = "up"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        grid = output["board"]["grid"]
+
+        self.assertEquals(grid[1], 1)
+        self.assertEquals(grid[0], 1)
+        self.assertEquals(output["score"], 0)
+
+
+    def test_swipe_Normal04(self):
+        columnCount = 2
+        rowCount = 2
+        grid = [1, 1, 1, 1]
+        direction = "down"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        grid = output["board"]["grid"]
+
+        self.assertEquals(grid[3], 2)
+        self.assertEquals(grid[2], 2)
+        self.assertEquals(output["score"], 8)
+
+    def test_swipe_Normal05(self):
+        columnCount = 4
+        rowCount = 2
+        grid = [0, 1, 1, 1, 0, 0, 0, 0]
+        direction = "left"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        grid = output["board"]["grid"]
+
+        self.assertEqual(grid[0], 2)
+        self.assertEqual(grid[1], 1)
+        self.assertEqual(output["score"], 4)

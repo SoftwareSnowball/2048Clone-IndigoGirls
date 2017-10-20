@@ -19,6 +19,7 @@
 
 
 import random
+from IndigoGirls.placeTile import placeTile
 
 def initializeGame(messageDictionary):
 
@@ -93,24 +94,28 @@ def initializeGame(messageDictionary):
     #remaining variables used for game initialization
     gridSize = columnCount * rowCount
     grid = [0] * (gridSize) #Python, your syntax is so weird
-    piecePlacement = [0,0]
+#    piecePlacement = [0,0]
+#
+#
+#    # -----------------------------------------
+#    # Determine where initial game pieces will go
+#
+#    piecePlacement[0] = random.randint(0, gridSize - 1)
+#    piecePlacement[1] = random.randint(0, gridSize - 1)
+#
+#    # Account for possibility that both pieces could be placed on the same tile
+#    while (piecePlacement[1] == piecePlacement[0]):
+#        piecePlacement[1] = random.randint(0, gridSize - 1)
+#
+#
+#    # -----------------------------------------
+#    # Sets the pieces on the board with their initial values
+#    grid[piecePlacement[0]] = makeInitialPiece()
+#    grid[piecePlacement[1]] = makeInitialPiece()
 
+    placeTile(grid)
+    placeTile(grid)
 
-    # -----------------------------------------
-    # Determine where initial game pieces will go
-
-    piecePlacement[0] = random.randint(0, gridSize - 1)
-    piecePlacement[1] = random.randint(0, gridSize - 1)
-
-    # Account for possibility that both pieces could be placed on the same tile
-    while (piecePlacement[1] == piecePlacement[0]):
-        piecePlacement[1] = random.randint(0, gridSize - 1)
-
-
-    # -----------------------------------------
-    # Sets the pieces on the board with their initial values
-    grid[piecePlacement[0]] = makeInitialPiece()
-    grid[piecePlacement[1]] = makeInitialPiece()
 
 
     # -----------------------------------------
@@ -118,5 +123,7 @@ def initializeGame(messageDictionary):
     gameMessage['score'] = 0
     gameMessage['board'] = {'columnCount': columnCount, 'rowCount' : rowCount, 'grid' : grid }
     gameMessage['gameStatus'] = 'underway'
+
+
 
     return gameMessage;

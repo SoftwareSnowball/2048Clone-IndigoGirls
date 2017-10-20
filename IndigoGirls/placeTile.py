@@ -14,10 +14,9 @@
 import random
 
 
-def placeTile(board):
+def placeTile(grid):
 
     #Check that board has empty spot
-    grid = board["grid"]
     index = 0
     hasEmpty = False
 
