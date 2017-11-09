@@ -49,7 +49,7 @@ class IntegrationTests(TestCase):
 
         joutput = dispatch(jInput)
 
-        print joutput
+        print(joutput)
 
         output = json.loads(joutput)
 
