@@ -34,10 +34,23 @@ def swipe(input):
 
     #Function checks for invalid inputs and returns a dictionary with keys "isError" and "errorMessage"
     def isInputValid(input):
+
+
         errorMessage = "error: "
         error = False
+
+        if ("direction" not in input):
+            error = True
+            errorMessage += "direction not given. "
+
+        if ("board" not in input):
+            error = True
+            errorMessage += "board not in dictionary"
+
+
+
         direction = input["direction"]
-        board = input["board"]
+
 
 
         if (type(direction) is unicode):
@@ -48,9 +61,16 @@ def swipe(input):
             errorMessage += "Direction must be string. "
             error = True
 
+        direction = direction.lower()
+        input["direction"] = direction
+
+
         if (direction != 'up' and direction != 'down' and direction != 'left' and direction != 'right'):
             errorMessage += "Direction not recognized. "
             error = True
+
+
+        board = input["board"]
 
         if (isNotValidNumber(board["rowCount"])):
             errorMessage += "rowCount is invalid. "

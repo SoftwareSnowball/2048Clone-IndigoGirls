@@ -134,6 +134,6 @@ def deterministicSwipe(input):
         return {"gameStatus": "error No tiles can be shifted"}
 
 
-    answer = {"board": board, "score": score, "gameStatus": "underway"}
+    answer = {'board': board, 'score': score, 'gameStatus': 'underway'}
 
     return answer
