@@ -51,7 +51,7 @@
 #       colCount:
 #           same as rowCount
 #
-#   Happy path
+#
 
 from unittest import TestCase
 
