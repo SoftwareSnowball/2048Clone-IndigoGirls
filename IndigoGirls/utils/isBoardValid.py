@@ -7,7 +7,7 @@
         Holds a function used to check the validity of a given board
 '''
 
-from IndigoGirls.areDimensionsValid import areDimensionsValid
+from IndigoGirls.utils.areDimensionsValid import areDimensionsValid
 
 
 def isBoardValid(board):

@@ -11,7 +11,7 @@
 
 '''
 
-from IndigoGirls.ElementLine import ElementLine
+from IndigoGirls.utils.ElementLine import ElementLine
 
 
 def deterministicSwipe(input):

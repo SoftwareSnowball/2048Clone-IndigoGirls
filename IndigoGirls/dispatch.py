@@ -1,6 +1,8 @@
 import json
+
 from IndigoGirls.initializeGame import initializeGame
-from IndigoGirls.swipe import swipe
+from IndigoGirls.swipe.swipe import swipe
+
 
 def dispatch(messageJson=None):
     """

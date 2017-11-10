@@ -6,7 +6,9 @@
     This file contains unit tests pertaining to the ElementLine class
 """
 from unittest import TestCase
-from IndigoGirls.ElementLine import ElementLine
+
+from IndigoGirls.utils.ElementLine import ElementLine
+
 
 class ElementLineTest(TestCase):
 

@@ -10,7 +10,7 @@
 
 '''
 
-from IndigoGirls.deterministicSwipe import deterministicSwipe
+from IndigoGirls.swipe.deterministicSwipe import deterministicSwipe
 
 def checkBoardStatus(tile, board):
 

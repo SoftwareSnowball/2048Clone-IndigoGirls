@@ -19,7 +19,9 @@
 
 
 import random
-from IndigoGirls.placeTile import placeTile
+
+from IndigoGirls.utils.placeTile import placeTile
+
 
 def initializeGame(messageDictionary):
 

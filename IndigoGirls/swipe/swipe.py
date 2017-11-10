@@ -10,9 +10,10 @@
 
 '''
 
-from IndigoGirls.deterministicSwipe import deterministicSwipe
-from IndigoGirls.placeTile import placeTile
-from IndigoGirls.isBoardValid import isBoardValid
+from IndigoGirls.swipe.deterministicSwipe import deterministicSwipe
+from IndigoGirls.utils.isBoardValid import isBoardValid
+from IndigoGirls.utils.placeTile import placeTile
+
 
 #TODO refactor validation tests from deterministicSwipe into swipe
 
@@ -56,6 +57,8 @@ def swipe(input):
         if (type(direction) is not str):
             errorMessage += "Direction must be string. "
             resultPackage["isError"] = True
+            return resultPackage
+
 
         direction = direction.lower()
         input["direction"] = direction

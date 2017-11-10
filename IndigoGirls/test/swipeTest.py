@@ -10,7 +10,8 @@
 '''
 
 from unittest import TestCase
-from IndigoGirls.swipe import swipe
+
+from IndigoGirls.swipe.swipe import swipe
 
 
 # Function swipe
@@ -50,7 +51,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("Direction must be string" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_ValidateDirection02(self):
         columnCount = 2
@@ -63,7 +64,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("Direction not recognized" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_ValidateRow01(self):
         columnCount = 2
@@ -89,7 +90,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("rowCount is invalid" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_ValidateColumn01(self):
         columnCount = 1
@@ -102,7 +103,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("columnCount is invalid" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_ValidateColumn02(self):
         columnCount = 101
@@ -115,7 +116,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("columnCount is invalid" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_ValidateColumn03(self):
         columnCount = "6"
@@ -128,7 +129,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("columnCount is invalid" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_ValidateGrid01(self):
         columnCount = 3
@@ -141,7 +142,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("Grid size is invalid" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_Unmovable01(self):
         columnCount = 2
@@ -154,7 +155,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("error" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
 
     def test_swipe_Normal01(self):

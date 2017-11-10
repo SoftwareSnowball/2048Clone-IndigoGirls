@@ -9,9 +9,10 @@
 
 '''
 
-from IndigoGirls.isBoardValid import isBoardValid
-from IndigoGirls.isVictoryTileValid import isVictoryTileValid
-from IndigoGirls.checkBoardStatus import checkBoardStatus
+from IndigoGirls.status.checkBoardStatus import checkBoardStatus
+from IndigoGirls.status.isVictoryTileValid import isVictoryTileValid
+from IndigoGirls.utils.isBoardValid import isBoardValid
+
 
 def status(input):
 

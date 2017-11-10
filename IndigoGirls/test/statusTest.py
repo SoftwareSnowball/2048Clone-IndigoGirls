@@ -54,7 +54,8 @@
 #   Happy path
 
 from unittest import TestCase
-from IndigoGirls.status import status
+
+from IndigoGirls.status.status import status
 
 
 class statusTest(TestCase):
