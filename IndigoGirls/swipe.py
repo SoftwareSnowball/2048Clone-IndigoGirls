@@ -70,7 +70,7 @@ def swipe(input):
 
         boardValidity = isBoardValid(board)
 
-        if (boardValidity["isError"]):
+        if (boardValidity["isInvalid"]):
             resultPackage["isError"] = True
             errorMessage += resultPackage["errorMessage"]
 

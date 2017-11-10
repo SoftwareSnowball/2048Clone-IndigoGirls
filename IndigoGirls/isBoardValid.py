@@ -9,45 +9,66 @@
 
 from IndigoGirls.areDimensionsValid import areDimensionsValid
 
+
 def isBoardValid(board):
 
     resultPackage = {}
-    resultPackage["isError"] = False
+    resultPackage["isInvalid"] = False
     errorMessage = ""
     resultPackage["errorMessage"] = errorMessage
 
 
     if (type(board) is not dict):
-        resultPackage["isError"] = True
+        resultPackage["isInvalid"] = True
         errorMessage += "board is not a dictionary. "
         return resultPackage
 
     if ("grid" not in board):
-        resultPackage["isError"] = True
+        resultPackage["isInvalid"] = True
         errorMessage += "grid missing from board. "
 
     if ("rowCount" not in board):
-        resultPackage["isError"] = True
+        resultPackage["isInvalid"] = True
         errorMessage += "rowCount is missing from board. "
 
     if ("columnCount" not in board):
-        resultPackage["isError"] = True
+        resultPackage["isInvalid"] = True
         errorMessage += "columnCount is missing from board. "
 
-    if (resultPackage["isError"]):
+    if (resultPackage["isInvalid"]):
         return resultPackage
 
     dimensionValidity = areDimensionsValid(board["rowCount"], board["columnCount"])
 
-    if (dimensionValidity["isError"]):
-        resultPackage["isError"] = True
+    if (dimensionValidity["isInvalid"]):
+        resultPackage["isInvalid"] = True
         errorMessage += dimensionValidity["errorMessage"]
         return resultPackage
 
     # I don't want this code to run if rowCount or columnCount is not valid because it could cause an exception
     if (len(board["grid"]) != board["rowCount"] * board["columnCount"]):
         errorMessage += "Grid size is invalid. "
-        resultPackage["isError"] = True
+        resultPackage["isInvalid"] = True
+
+    #Check that at least two members are non zero
+    nonIntFound = False
+    nonZerosFound = 0
+    for element in board["grid"]:
+
+        if type(element) is int: #because I really really don't trust python (and my distrust proved warranted)
+            if element is not 0:
+                nonZerosFound += 1
+        else:
+            nonIntFound = True
+
+    if (nonIntFound):
+        errorMessage += "grid contains non integer element. "
+        resultPackage["isInvalid"] = True
+
+    if (nonZerosFound < 2):
+        errorMessage += "grid must contain at least 2 non empty tiles. "
+        resultPackage["isInvalid"] = True
+
 
 
     return resultPackage

@@ -23,17 +23,17 @@ def areDimensionsValid(rowCount, columnCount):
 
 
     resultPackage = {}
-    resultPackage["isError"] = False
+    resultPackage["isInvalid"] = False
     errorMessage = ""
     resultPackage["errorMessage"] = errorMessage
 
     if (isNotValidNumber(rowCount)):
         errorMessage += "rowCount is invalid. "
-        resultPackage["isError"] = True
+        resultPackage["isInvalid"] = True
 
     if (isNotValidNumber(columnCount)):
         errorMessage += "columnCount is invalid. "
-        resultPackage["isError"] = True
+        resultPackage["isInvalid"] = True
 
 
     return resultPackage
