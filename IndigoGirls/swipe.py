@@ -1,6 +1,6 @@
 '''
     Created  on October 19, 2017
-
+    Modified on November 9, 2017
 
     @Author: James Malloy
 
@@ -12,6 +12,7 @@
 
 from IndigoGirls.deterministicSwipe import deterministicSwipe
 from IndigoGirls.placeTile import placeTile
+from IndigoGirls.isBoardValid import isBoardValid
 
 #TODO refactor validation tests from deterministicSwipe into swipe
 
@@ -20,38 +21,33 @@ def swipe(input):
     #-----------------------------------------------------#
     #HELPER FUNCTIONS
 
-    #Function is used to simplify the validity check for both rowCount and columnCount
-    #This function is also declared in initializeGame.
-    #TODO: refactor this into its during OO rework
-    def isNotValidNumber(x):
-        if (type(x) is not int):
-            return True
-
-        if ((x <= 1) or (x > 100)):
-            return True
-
-        return False
-
     #Function checks for invalid inputs and returns a dictionary with keys "isError" and "errorMessage"
     def isInputValid(input):
 
-
+        resultPackage = {}
         errorMessage = "error: "
-        error = False
+        resultPackage["errorMessage"] = errorMessage
+        resultPackage["isError"] = False
+
+        #Check that everything is in the dictionary
 
         if ("direction" not in input):
-            error = True
+            resultPackage["isError"] = True
             errorMessage += "direction not given. "
 
         if ("board" not in input):
-            error = True
-            errorMessage += "board not in dictionary"
+            resultPackage["isError"] = True
+            errorMessage += "board not in dictionary. "
+
+        if (resultPackage["isError"]):
+            return resultPackage
 
 
+
+
+        #check that everything within the dictionary is valid
 
         direction = input["direction"]
-
-
 
         if (type(direction) is unicode):
             direction = direction.encode('ascii', 'ignore')
@@ -59,7 +55,7 @@ def swipe(input):
 
         if (type(direction) is not str):
             errorMessage += "Direction must be string. "
-            error = True
+            resultPackage["isError"] = True
 
         direction = direction.lower()
         input["direction"] = direction
@@ -67,26 +63,19 @@ def swipe(input):
 
         if (direction != 'up' and direction != 'down' and direction != 'left' and direction != 'right'):
             errorMessage += "Direction not recognized. "
-            error = True
+            resultPackage["isError"] = True
 
 
         board = input["board"]
 
-        if (isNotValidNumber(board["rowCount"])):
-            errorMessage += "rowCount is invalid. "
-            error = True
+        boardValidity = isBoardValid(board)
 
-        if (isNotValidNumber((board["columnCount"]))):
-            errorMessage += "columnCount is invalid. "
-            error = True
-
-        # I don't want this code to run if rowCount or columnCount is not valid because it could cause an exception
-        if ((error == False) and (len(board["grid"]) != board["rowCount"] * board["columnCount"])):
-            errorMessage += "Grid size is invalid. "
-            error = True
+        if (boardValidity["isError"]):
+            resultPackage["isError"] = True
+            errorMessage += resultPackage["errorMessage"]
 
 
-        return {"errorMessage": errorMessage, "isError": error}
+        return resultPackage
 
     #END HELPER FUNCTIONS
     #-----------------------------------------------------#

@@ -28,6 +28,7 @@ def initializeGame(messageDictionary):
     # -----------------------------------------
 
     #Function is used to simplify the validity check for both rowCount and columnCount
+    #TODO: refactor this out of this function
     def isNotValidNumber(x):
         if (type(x) is not int):
             return True
@@ -57,7 +58,7 @@ def initializeGame(messageDictionary):
     functionErrorFlag = False
     gameMessage = {}
 
-
+    #TODO: rework this part to use areDimensionsValid and rework testcode to allow more general error responses
     # -----------------------------------------
     # Check columnCount validity
     if ('columnCount' in messageDictionary):
