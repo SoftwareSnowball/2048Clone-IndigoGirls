@@ -10,13 +10,43 @@
 
 '''
 
+from IndigoGirls.deterministicSwipe import deterministicSwipe
 
 def checkBoardStatus(tile, board):
 
-    output = {}
-    output["gameStatus"] = ""
+    def prepareInputPackage(direction):
+        inputPackage = {}
+        inputPackage["direction"] = direction
+        inputPackage["board"] = dict(board)
+        inputPackage["board"]["grid"] = list(board["grid"])
+        return inputPackage
 
 
+    output = ""
+
+    for element in board["grid"]:
+        if (element >= tile):
+            output = "win"
+            return output
+
+    swipeResults = [0]*4
+
+    upInput = prepareInputPackage("up")
+    swipeResults[0] = deterministicSwipe(upInput)
+    downInput = prepareInputPackage("down")
+    swipeResults[1] = deterministicSwipe(downInput)
+    leftInput = prepareInputPackage("left")
+    swipeResults[2] = deterministicSwipe(leftInput)
+    rightInput = prepareInputPackage("right")
+    swipeResults[3] = deterministicSwipe(rightInput)
+
+    for result in swipeResults:
+
+        if ("error" not in result["gameStatus"]):
+            return "underway"
+
+
+    return "lose"
 
 
     return output

@@ -235,7 +235,7 @@ class statusTest(TestCase):
         board = {}
         board["rowCount"] = 2
         board["columnCount"] = 2
-        board["grid"] = [4, 0, 0, 0]
+        board["grid"] = [4, 0, 1, 0]
 
         input = {}
         input["board"] = board
@@ -244,3 +244,42 @@ class statusTest(TestCase):
         output = status(input)
 
         self.assertIn("win", output["gameStatus"])
+
+    def test_win2(self):
+        board = {}
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+        board["grid"] = [8, 0, 1, 0]
+
+        input = {}
+        input["board"] = board
+
+        output = status(input)
+
+        self.assertIn("win", output["gameStatus"])
+
+    def test_lose1(self):
+        board = {}
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+        board["grid"] = [2, 3, 4, 5]
+
+        input = {}
+        input["board"] = board
+
+        output = status(input)
+
+        self.assertIn("lose", output["gameStatus"])
+
+    def test_underway1(self):
+        board = {}
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+        board["grid"] = [2, 0, 4, 5]
+
+        input = {}
+        input["board"] = board
+
+        output = status(input)
+
+        self.assertIn("underway", output["gameStatus"])
