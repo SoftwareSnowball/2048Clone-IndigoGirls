@@ -216,3 +216,23 @@ class RecommendTest(TestCase):
         output = recommend(input)
 
         self.assertNotIn("error", output["gameStatus"])
+
+    def test_0depthrecommend1(self):
+
+        board = {}
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+        board["grid"] = [2,2,1,3]
+
+        moves = 0
+
+        input = {}
+        input["board"] = board
+        input["moves"] = moves
+        output = recommend(input)
+
+        self.assertNotIn("error", output["gameStatus"])
+        self.assertIn("grid", output)
+        grid = output["grid"]
+
+        self.assertTrue(grid[0] == 3 or grid[1] == 3)

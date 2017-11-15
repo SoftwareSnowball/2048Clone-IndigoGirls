@@ -77,7 +77,7 @@ class swipeTest(TestCase):
 
         output = swipe(input)
 
-        self.assertTrue("rowCount is invalid" in output["gameStatus"])
+        self.assertIn("error", output["gameStatus"])
 
     def test_swipe_ValidateRow02(self):
         columnCount = 2
