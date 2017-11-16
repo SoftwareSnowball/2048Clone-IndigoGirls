@@ -12,6 +12,7 @@
 
 from IndigoGirls.utils.isBoardValid import isBoardValid
 from IndigoGirls.swipe.swipeRandom import swipeRandom
+from IndigoGirls.recommend.swipeRecommend import swipeRecommend
 
 def recommend(input):
     output = {}
@@ -47,6 +48,8 @@ def recommend(input):
 
     if (moves == 0):
         output = swipeRandom(board)
+    else:
+        output = swipeRecommend(board, moves)
 
 
 
