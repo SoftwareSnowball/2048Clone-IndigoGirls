@@ -11,6 +11,7 @@
 
 
 from IndigoGirls.utils.isBoardValid import isBoardValid
+from IndigoGirls.swipe.swipeRandom import swipeRandom
 
 def recommend(input):
     output = {}
@@ -43,6 +44,9 @@ def recommend(input):
             isError = True
             output["gameStatus"] = errorMessage
             return output
+
+    if (moves == 0):
+        output = swipeRandom(board)
 
 
 

@@ -217,7 +217,7 @@ class RecommendTest(TestCase):
 
         self.assertNotIn("error", output["gameStatus"])
 
-    def test_0depthrecommend1(self):
+    def test_0depthRecommend1(self):
 
         board = {}
         board["rowCount"] = 2
@@ -232,7 +232,62 @@ class RecommendTest(TestCase):
         output = recommend(input)
 
         self.assertNotIn("error", output["gameStatus"])
-        self.assertIn("grid", output)
-        grid = output["grid"]
+        grid = output["board"]["grid"]
 
         self.assertTrue(grid[0] == 3 or grid[1] == 3)
+
+
+    def test_0depthRecommend2(self):
+
+        board = {}
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+        grid = [2,2,1,3]
+        board["grid"] = list(grid)
+
+        moves = 0
+        leftMoves = 0
+        rightMoves = 0
+
+        input = {}
+        input["board"] = board
+        input["moves"] = moves
+
+        trials = 1000
+        i = 0
+
+        while (i < trials):
+            i += 1
+            output = recommend(input)
+
+            self.assertNotIn("error", output["gameStatus"])
+            grid = output["board"]["grid"]
+
+            if (grid[0] == 3):
+                leftMoves += 1
+            else:
+                rightMoves += 1
+
+
+
+        percentMoves = float(leftMoves) / float(trials)
+        self.assertEqual(leftMoves + rightMoves, trials)
+        self.assertAlmostEqual(percentMoves, 0.5, 1)
+
+
+    def test_1depthRecommend(self):
+
+        board = {}
+        board["rowCount"] = 3
+        board["columnCount"] = 2
+        board["grid"] = [1,1,2,3,2,2]
+
+        moves = 1
+
+        input = {}
+        input["board"] = board
+        input["moves"] = moves
+        output = recommend(input)
+
+
+        self.assertEqual(output["score"], 12)
