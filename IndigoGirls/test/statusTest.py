@@ -240,7 +240,7 @@ class statusTest(TestCase):
 
         input = {}
         input["board"] = board
-        input["tile"] = 4
+        input["tile"] = 2 ** 4
 
         output = status(input)
 
@@ -250,7 +250,7 @@ class statusTest(TestCase):
         board = {}
         board["rowCount"] = 2
         board["columnCount"] = 2
-        board["grid"] = [8, 0, 1, 0]
+        board["grid"] = [4, 0, 1, 0]
 
         input = {}
         input["board"] = board
@@ -263,10 +263,11 @@ class statusTest(TestCase):
         board = {}
         board["rowCount"] = 2
         board["columnCount"] = 2
-        board["grid"] = [2, 3, 4, 5]
+        board["grid"] = [2, 3, 3, 1]
 
         input = {}
         input["board"] = board
+        input["tile"] = 2 ** 4
 
         output = status(input)
 
@@ -276,7 +277,7 @@ class statusTest(TestCase):
         board = {}
         board["rowCount"] = 2
         board["columnCount"] = 2
-        board["grid"] = [2, 0, 4, 5]
+        board["grid"] = [2, 0, 2, 1]
 
         input = {}
         input["board"] = board

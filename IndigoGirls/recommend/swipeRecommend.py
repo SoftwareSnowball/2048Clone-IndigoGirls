@@ -1,5 +1,6 @@
 '''
     Created on November 16, 2017
+    Edited on November 17, 2017
 
     @Author: James Malloy
 
@@ -44,6 +45,8 @@ def swipeRecommend(board, moves):
     generatedInput["board"] = copyBoard(board)
     generatedInput["direction"] = bestDirection
     output = deterministicSwipe(generatedInput)
+
+    assert(placeTile(output["board"]["grid"]))
 
 
     return output

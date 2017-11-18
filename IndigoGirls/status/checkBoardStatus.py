@@ -1,5 +1,6 @@
 '''
-    Created  on October 19, 2017
+    Created  on November 10, 2017
+    Edited on Novemember 17, 2017
 
 
     @Author: James Malloy
@@ -25,7 +26,7 @@ def checkBoardStatus(tile, board):
     output = ""
 
     for element in board["grid"]:
-        if (element >= tile):
+        if (2 ** element >= tile): #Conditional modified to account for spec change to how tile works
             output = "win"
             return output
 
