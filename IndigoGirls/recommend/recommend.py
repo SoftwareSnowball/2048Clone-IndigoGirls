@@ -51,9 +51,4 @@ def recommend(input):
     else:
         output = swipeRecommend(board, moves)
 
-
-
-
-
-
     return output
