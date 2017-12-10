@@ -85,13 +85,13 @@ def searchSwipePaths(board, movesleft, direction):
     outputPackage["maxScore"] += max(maxScores)
     outputPackage["minScore"] += min(minScores)
 
-    average = 0
+    average = 0.0
     for index in range(len(avgScores)):
-        average += avgScores[index] * avgScoreWeights[index]
+        average += float(avgScores[index]) * float(avgScoreWeights[index])
 
-    average /= sum(avgScoreWeights)
+    average /= float(sum(avgScoreWeights))
 
-    outputPackage["avgScore"] += average
+    outputPackage["avgScore"] += int(round(average,0))
 
 
 
