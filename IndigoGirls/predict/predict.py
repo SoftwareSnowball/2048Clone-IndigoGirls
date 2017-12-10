@@ -12,8 +12,10 @@
 from IndigoGirls.utils.isBoardValid import isBoardValid
 from IndigoGirls.predict.isMovesValid import isMovesValid
 from IndigoGirls.utils.isDirectionValid import isDirectionValid
+from IndigoGirls.recommend.searchSwipePaths import searchSwipePaths
 
 def predict(input):
+
 
     #Check that board is valid
     if "board" not in input:
@@ -49,4 +51,18 @@ def predict(input):
     direction = direction.lower()
 
 
-    return {"gameStatus": "test"}
+
+    searchResults = searchSwipePaths(board, moves - 1, direction)
+
+    if (searchResults["isInvalid"]):
+        return {"gameStatus": "error: " + searchResults["errorMessage"]}
+
+
+    resultPackage = {}
+    resultPackage["gameStatus"] = "underway"
+    resultPackage["highScore"] = searchResults["maxScore"]
+    resultPackage["lowScore"] = searchResults["minScore"]
+    resultPackage["averageScore"] = searchResults["averageScore"]
+
+
+    return resultPackage
