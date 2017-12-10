@@ -440,7 +440,7 @@ class PredictTest(TestCase):
         input = {}
 
         board = {}
-        board["grid"] = [0,0,1,0,0,1,2,2,0,0,1,0,2,2]
+        board["grid"] = [0,0,0,1,0,0,0,1,2,2,0,0,1,0,2,2]
         board["rowCount"] = 4
         board["columnCount"] = 4
 
@@ -463,3 +463,20 @@ class PredictTest(TestCase):
         self.assertEqual(highScore, 20)
         self.assertEqual(lowScore, 16)
         self.assertEqual(averageScore, 19)
+
+    def test_predictNoValidMove_03(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1,2,3,4]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "down"
+        input["moves"] = 2
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])

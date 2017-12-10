@@ -15,7 +15,7 @@ def isBoardValid(board):
     resultPackage = {}
     resultPackage["isInvalid"] = False
     errorMessage = ""
-    resultPackage["errorMessage"] = errorMessage
+    resultPackage["errorMessage"] = "{errorMessage}"
 
 
     if (type(board) is not dict):
