@@ -33,4 +33,4 @@ def predict(input):
             return {"gameStatus": "error: "+ movesValidity["errorMessage"]}
 
 
-    return {}
+    return {"gameStatus": "test"}

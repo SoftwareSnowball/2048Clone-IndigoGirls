@@ -26,3 +26,5 @@ def checkMoves(moves):
         errorMessage = "moves must be greater than or equal to 1"
         resultPackage["isInvalid"] = True
         return resultPackage
+
+    return resultPackage
