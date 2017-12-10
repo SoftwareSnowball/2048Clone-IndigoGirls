@@ -10,7 +10,7 @@
 '''
 
 
-def checkMoves(moves):
+def isMovesValid(moves):
 
     resultPackage = {}
     resultPackage["isInvalid"] = False

@@ -10,8 +10,8 @@
 '''
 
 from IndigoGirls.utils.isBoardValid import isBoardValid
-from IndigoGirls.predict.checkMoves import checkMoves
-
+from IndigoGirls.predict.isMovesValid import isMovesValid
+from IndigoGirls.utils.isDirectionValid import isDirectionValid
 
 def predict(input):
 
@@ -19,7 +19,8 @@ def predict(input):
     if "board" not in input:
         return {"gameStatus": "error: missing board"}
 
-    boardValidity = isBoardValid(input["board"])
+    board = input["board"]
+    boardValidity = isBoardValid(board)
 
     if boardValidity["isInvalid"] == True:
         return {"gameStatus": "error: " + boardValidity["errorMessage"] }
@@ -28,9 +29,16 @@ def predict(input):
     moves = 1
     if "moves" in input:
         moves = input["moves"]
-        movesValidity = checkMoves(moves)
+        movesValidity = isMovesValid(moves)
         if movesValidity["isInvalid"] == True:
             return {"gameStatus": "error: "+ movesValidity["errorMessage"]}
+
+    #Check that direction is valid
+    if "direction" not in input:
+        return {"gameStatus": "error: missing direction"}
+
+    direction = input["direction"]
+    directionValidity = isDirectionValid(direction)
 
 
     return {"gameStatus": "test"}
