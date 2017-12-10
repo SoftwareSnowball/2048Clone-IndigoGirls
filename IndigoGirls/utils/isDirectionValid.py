@@ -23,7 +23,6 @@ def isDirectionValid(direction):
         return resultPackage
 
     direction = direction.lower()
-    input["direction"] = direction
 
     if (direction != 'up' and direction != 'down' and direction != 'left' and direction != 'right'):
         errorMessage += "Direction not recognized. "

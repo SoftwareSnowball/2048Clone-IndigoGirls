@@ -22,7 +22,7 @@ def predict(input):
     board = input["board"]
     boardValidity = isBoardValid(board)
 
-    if boardValidity["isInvalid"] == True:
+    if boardValidity["isInvalid"]:
         return {"gameStatus": "error: " + boardValidity["errorMessage"] }
 
     #Check that moves is valid
@@ -30,7 +30,7 @@ def predict(input):
     if "moves" in input:
         moves = input["moves"]
         movesValidity = isMovesValid(moves)
-        if movesValidity["isInvalid"] == True:
+        if movesValidity["isInvalid"]:
             return {"gameStatus": "error: "+ movesValidity["errorMessage"]}
 
     #Check that direction is valid
@@ -39,6 +39,10 @@ def predict(input):
 
     direction = input["direction"]
     directionValidity = isDirectionValid(direction)
+
+    if directionValidity["isInvalid"]:
+        return {"gameStatus": "error: " + directionValidity["errorMessage"]}
+
 
 
     return {"gameStatus": "test"}
