@@ -434,7 +434,7 @@ class PredictTest(TestCase):
 
         self.assertEqual(highScore, 4)
         self.assertEqual(lowScore, 0)
-        self.assertEqual(averageScore, 2)
+        self.assertEqual(averageScore, 3)
 
     def test_predictDepth2_02(self):
         input = {}
@@ -463,6 +463,35 @@ class PredictTest(TestCase):
         self.assertEqual(highScore, 20)
         self.assertEqual(lowScore, 16)
         self.assertEqual(averageScore, 19)
+
+    def test_predictDepth3_02(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 1, 3, 2]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "down"
+        input["moves"] = 3
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("underway", output["gameStatus"])
+        self.assertIn("highScore", output)
+        self.assertIn("lowScore", output)
+        self.assertIn("averageScore", output)
+
+        highScore = output["highScore"]
+        lowScore = output["lowScore"]
+        averageScore = output["averageScore"]
+
+        self.assertEqual(highScore, 28)
+        self.assertEqual(lowScore, 4)
+        self.assertEqual(averageScore, 15)
+
 
     def test_predictNoValidMove_03(self):
         input = {}
