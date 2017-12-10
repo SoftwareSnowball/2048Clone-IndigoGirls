@@ -323,3 +323,31 @@ class PredictTest(TestCase):
         self.assertIn("gameStatus", output)
         self.assertIn("error", output["gameStatus"])
 
+
+    def test_UnicodeDirection(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 1, 0, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = u"right"
+        input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("underway", output["gameStatus"])
+        self.assertIn("highScore", output)
+        self.assertIn("lowScore", output)
+        self.assertIn("averageScore", output)
+
+        highScore = output["highScore"]
+        lowScore = output["lowScore"]
+        averageScore = output["averageScore"]
+
+        self.assertEqual(highScore, 2)
+        self.assertEqual(lowScore, 2)
+        self.assertEqual(averageScore, 2)
