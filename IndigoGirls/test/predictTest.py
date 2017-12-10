@@ -324,7 +324,7 @@ class PredictTest(TestCase):
         self.assertIn("error", output["gameStatus"])
 
 
-    def test_UnicodeDirection(self):
+    def test_unicodeDirection(self):
         input = {}
 
         board = {}
@@ -352,7 +352,7 @@ class PredictTest(TestCase):
         self.assertEqual(lowScore, 4)
         self.assertEqual(averageScore, 4)
 
-    def test_CapitalDirection(self):
+    def test_capitalDirection(self):
         input = {}
 
         board = {}
@@ -379,3 +379,59 @@ class PredictTest(TestCase):
         self.assertEqual(highScore, 4)
         self.assertEqual(lowScore, 4)
         self.assertEqual(averageScore, 4)
+
+    def test_predictWithNoSpecifiedMoves01(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 1, 0, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "left"
+        #input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("underway", output["gameStatus"])
+        self.assertIn("highScore", output)
+        self.assertIn("lowScore", output)
+        self.assertIn("averageScore", output)
+
+        highScore = output["highScore"]
+        lowScore = output["lowScore"]
+        averageScore = output["averageScore"]
+
+        self.assertEqual(highScore, 4)
+        self.assertEqual(lowScore, 4)
+        self.assertEqual(averageScore, 4)
+
+    def test_predictDepth2_01(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 1, 0, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "down"
+        input["moves"] = 2
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("underway", output["gameStatus"])
+        self.assertIn("highScore", output)
+        self.assertIn("lowScore", output)
+        self.assertIn("averageScore", output)
+
+        highScore = output["highScore"]
+        lowScore = output["lowScore"]
+        averageScore = output["averageScore"]
+
+        self.assertEqual(highScore, 4)
+        self.assertEqual(lowScore, 0)
+        self.assertEqual(averageScore, 2)
