@@ -62,12 +62,23 @@ from IndigoGirls.utils.copyBoard import copyBoard
 
 class RecommendTest(TestCase):
 
-    def test_noBoard(self):
+    def test_noBoard01(self):
 
         input = {}
 
         output = recommend(input)
 
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])
+
+    def test_noBoard02(self):
+
+        input = {}
+        input["tile"] = 4
+        input["moves"] = 1
+
+        output = recommend(input)
+        #error from assignment 7 could not be replicated
         self.assertIn("gameStatus", output)
         self.assertIn("error", output["gameStatus"])
 
@@ -116,6 +127,96 @@ class RecommendTest(TestCase):
         board["rowCount"] = 3
         board["columnCount"] = "2"
         board["grid"] = [2,2,2,2,2,0]
+
+        input = {}
+        input["board"] = board
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badBoard5_1(self):
+        board = {}
+        board["rowCount"] = 3
+        board["grid"] = [2,2,2,2,2,0]
+
+        input = {}
+        input["board"] = board
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badBoard5_2(self):
+        board = {}
+        board["columnCount"] = 2
+        board["grid"] = [2,2,2,2,2,0]
+
+        input = {}
+        input["board"] = board
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badBoard5_3(self):
+        board = {}
+        board["columnCount"] = 2
+        board["rowCount"] = None
+        board["grid"] = [2,2,2,2,2,0]
+
+        input = {}
+        input["board"] = board
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badBoard5_4(self):
+        board = {}
+        board["columnCount"] = None
+        board["rowCount"] = 3
+        board["grid"] = [2,2,2,2,2,0]
+
+        input = {}
+        input["board"] = board
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badBoard5_5(self):
+        board = {}
+        board["columnCount"] = 101
+        board["rowCount"] = 3
+        board["grid"] = [0] * (3*101)
+        board["grid"][0] = 1
+        board["grid"][1] = 2
+
+        input = {}
+        input["board"] = board
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badBoard5_6(self):
+        board = {}
+        board["columnCount"] = 3
+        board["rowCount"] = 101
+        board["grid"] = [0] * (3*101)
+        board["grid"][0] = 1
+        board["grid"][1] = 2
+
+        input = {}
+        input["board"] = board
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badBoard5_7(self):
+        board = {}
+        board["columnCount"] = 3
+        board["rowCount"] = 12
+        board["grid"] = [0] * (3*12)
+        board["grid"][0] = 1
+        board["grid"][1] = 2
+        board["grid"][1] = -1
+
 
         input = {}
         input["board"] = board
@@ -199,6 +300,19 @@ class RecommendTest(TestCase):
         input = {}
         input["board"] = board
         input["moves"] = moves
+        output = recommend(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badmoves3(self): #no moves
+        board = {}
+        board["rowCount"] = 3
+        board["columnCount"] = 2
+        board["grid"] = [2] * (3 * 2)
+
+        input = {}
+        input["board"] = board
+        input["moves"] = "nan"
         output = recommend(input)
 
         self.assertIn("error", output["gameStatus"])

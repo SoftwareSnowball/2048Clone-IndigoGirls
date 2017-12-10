@@ -144,6 +144,32 @@ class swipeTest(TestCase):
 
         self.assertIn("error", output["gameStatus"])
 
+    def test_swipe_invalid_grid01(self):
+        columnCount = 3
+        rowCount = 2
+        grid = [0] * (3 * 2 + 50)
+        direction = "up"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        self.assertIn("error", output["gameStatus"])
+
+    def test_swipe_invalid_grid02(self):
+        columnCount = 3
+        rowCount = 2
+        grid = [1,2,3,4,5,0,0,3,4,5,3,2]
+        direction = "up"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        input = {"board": board, "direction": direction}
+
+        output = swipe(input)
+
+        self.assertIn("error", output["gameStatus"])
+
     def test_swipe_Unmovable01(self):
         columnCount = 2
         rowCount = 2

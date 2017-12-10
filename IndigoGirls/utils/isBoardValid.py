@@ -53,17 +53,26 @@ def isBoardValid(board):
     #Check that at least two members are non zero
     nonIntFound = False
     nonZerosFound = 0
+    negativesFound = 0
     for element in board["grid"]:
 
         if type(element) is int: #because I really really don't trust python (and my distrust proved warranted)
             if element is not 0:
                 nonZerosFound += 1
+            if element < 0:
+                negativesFound += 1
+                break
         else:
             nonIntFound = True
 
     if (nonIntFound):
         errorMessage += "grid contains non integer element. "
         resultPackage["isInvalid"] = True
+
+    if (negativesFound > 0):
+        errorMessage += "grid must not contain negative numbers. "
+        resultPackage["isInvalid"] = True
+
 
     if (nonZerosFound < 2):
         errorMessage += "grid must contain at least 2 non empty tiles. "
