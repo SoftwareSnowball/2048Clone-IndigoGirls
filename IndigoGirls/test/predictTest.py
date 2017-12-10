@@ -351,3 +351,31 @@ class PredictTest(TestCase):
         self.assertEqual(highScore, 4)
         self.assertEqual(lowScore, 4)
         self.assertEqual(averageScore, 4)
+
+    def test_CapitalDirection(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 1, 0, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "lEFt"
+        input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("underway", output["gameStatus"])
+        self.assertIn("highScore", output)
+        self.assertIn("lowScore", output)
+        self.assertIn("averageScore", output)
+
+        highScore = output["highScore"]
+        lowScore = output["lowScore"]
+        averageScore = output["averageScore"]
+
+        self.assertEqual(highScore, 4)
+        self.assertEqual(lowScore, 4)
+        self.assertEqual(averageScore, 4)
