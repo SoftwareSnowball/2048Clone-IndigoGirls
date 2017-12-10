@@ -61,11 +61,10 @@ def searchSwipePaths(board, movesleft, direction):
 
     directions = ["up", "down", "left", "right"]
 
-    invalidMove = [False] * 4
     maxScores = []
     minScores = []
     avgScores = []
-    avgScoreWeights = [0] * 4
+    avgScoreWeights = []
 
 
     for index in range(4):
@@ -78,6 +77,11 @@ def searchSwipePaths(board, movesleft, direction):
             avgScores.append(directionalSearchResult["avgScore"])
             avgScoreWeights.append(directionalSearchResult["scoreWeight"])
 
+    if (len(maxScores) == 0):
+        outputPackage["isInvalid"] = True
+        return outputPackage
+
+
     outputPackage["maxScore"] += max(maxScores)
     outputPackage["minScore"] += min(minScores)
 
@@ -89,8 +93,7 @@ def searchSwipePaths(board, movesleft, direction):
 
     outputPackage["avgScore"] += average
 
-    if (len(maxScores) == 0):
-        outputPackage["isInvalid"] = True
+
 
 
     return outputPackage
