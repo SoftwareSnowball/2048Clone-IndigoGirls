@@ -24,7 +24,7 @@ def swipeRecommend(board, moves):
     for index in range(4):
 
         boardCopy = copyBoard(board)
-        scores[index] = searchSwipePaths(boardCopy, moves - 1, directions[index])
+        scores[index] = searchSwipePaths(boardCopy, moves - 1, directions[index])["maxScore"]
 
     highestScore = max(scores)
 

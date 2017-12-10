@@ -29,6 +29,16 @@ def searchSwipePaths(board, movesleft, direction):
 
     score = 1
 
+    errorMessage = ""
+
+    outputPackage = {}
+    outputPackage["isInvalid"] = False
+    outputPackage["errorMessage"] = errorMessage
+    outputPackage["maxScore"] = -1
+    outputPackage["minScore"] = -1
+    outputPackage["avgScore"] = -1
+    outputPackage["scoreWeight"] = 1
+
     inputPackage = {}
     inputPackage["board"] = board
     inputPackage["direction"] = direction
@@ -36,25 +46,44 @@ def searchSwipePaths(board, movesleft, direction):
     myResults = deterministicSwipe(inputPackage)
 
     if ("error" in myResults["gameStatus"]):
-        return -1
+        outputPackage["isInvalid"] = True
+        errorMessage = " swipe could not be performed"
+        return outputPackage
 
-    score = myResults["score"]
+    myScore = myResults["score"]
+
+    outputPackage["maxScore"] = myScore
+    outputPackage["minScore"] = myScore
+    outputPackage["avgScore"] = myScore
 
     if (movesleft == 0):
-        return score
-
+        return outputPackage
 
     directions = ["up", "down", "left", "right"]
-    scores = [0] * 4
+
+    invalidMove = [False] * 4
+    maxScores = [-1]*4
+    minScores = [-1]*4
+    avgScores = [-1]*4
+    avgScoreWeights = [0] * 4
+
 
     for index in range(4):
         boardCopy = copyBoard(board)
-        scores[index] = searchSwipePaths(boardCopy, movesleft - 1, directions[index])
+        directionalSearchResult = searchSwipePaths(boardCopy, movesleft - 1, directions[index])
 
-    maxScore = max(scores)
+        if directionalSearchResult["isInvalid"] == False:
+            maxScores[index] = directionalSearchResult["maxScore"]
+            minScores[index] = directionalSearchResult["minScore"]
+            avgScores[index] = directionalSearchResult["avgScore"]
+            avgScoreWeights[index] = directionalSearchResult["scoreWeight"]
 
-    if (maxScore == -1):
-        return -1
 
-    score += maxScore
-    return score
+    outputPackage["maxScore"] += max(maxScores)
+
+
+    if (outputPackage["maxScore"] == -1):
+        outputPackage["isInvalid"] = True
+
+
+    return outputPackage
