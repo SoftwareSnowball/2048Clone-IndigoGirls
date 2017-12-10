@@ -43,6 +43,10 @@ def predict(input):
     if directionValidity["isInvalid"]:
         return {"gameStatus": "error: " + directionValidity["errorMessage"]}
 
+    #Force direction to comply with desired format
+    if (type(direction) is unicode):
+        direction = direction.encode('ascii', 'ignore')
+    direction = direction.lower()
 
 
     return {"gameStatus": "test"}
