@@ -473,7 +473,7 @@ class PredictTest(TestCase):
         board["columnCount"] = 2
 
         input["board"] = board
-        input["direction"] = "down"
+        input["direction"] = "right"
         input["moves"] = 3
 
         output = predict(input)
