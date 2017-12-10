@@ -7,7 +7,7 @@
 """
 
 from unittest import TestCase
-from IndigoGirls.predict import predict
+from IndigoGirls.predict.predict import predict
 
 
 #----------------------------------

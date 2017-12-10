@@ -26,16 +26,21 @@ def isBoardValid(board):
     if ("grid" not in board):
         resultPackage["isInvalid"] = True
         errorMessage += "grid missing from board. "
+        return resultPackage
 
     if ("rowCount" not in board):
         resultPackage["isInvalid"] = True
         errorMessage += "rowCount is missing from board. "
+        return resultPackage
 
     if ("columnCount" not in board):
         resultPackage["isInvalid"] = True
         errorMessage += "columnCount is missing from board. "
+        return resultPackage
 
-    if (resultPackage["isInvalid"]):
+    if (type(board["grid"]) is not list):
+        resultPackage["isInvalid"] = True
+        errorMessage += "grid must be a list. "
         return resultPackage
 
     dimensionValidity = areDimensionsValid(board["rowCount"], board["columnCount"])
@@ -49,6 +54,8 @@ def isBoardValid(board):
     if (len(board["grid"]) != board["rowCount"] * board["columnCount"]):
         errorMessage += "Grid size is invalid. "
         resultPackage["isInvalid"] = True
+        return resultPackage
+
 
     #Check that at least two members are non zero
     nonIntFound = False
@@ -68,15 +75,18 @@ def isBoardValid(board):
     if (nonIntFound):
         errorMessage += "grid contains non integer element. "
         resultPackage["isInvalid"] = True
+        return resultPackage
 
     if (negativesFound > 0):
         errorMessage += "grid must not contain negative numbers. "
         resultPackage["isInvalid"] = True
+        return resultPackage
 
 
     if (nonZerosFound < 2):
         errorMessage += "grid must contain at least 2 non empty tiles. "
         resultPackage["isInvalid"] = True
+        return resultPackage
 
 
 

@@ -9,4 +9,17 @@
 
 '''
 
+from IndigoGirls.utils.isBoardValid import isBoardValid
 
+
+def predict(input):
+
+    if "board" not in input:
+        return {"gameStatus": "error: missing board"}
+
+    boardValidity = isBoardValid(input["board"])
+
+    if boardValidity["isInvalid"] == True:
+        return {"gameStatus": "error: " + boardValidity["errorMessage"] }
+
+    return 0
