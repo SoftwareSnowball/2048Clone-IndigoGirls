@@ -10,6 +10,7 @@
 '''
 
 from IndigoGirls.utils.isBoardValid import isBoardValid
+from IndigoGirls.predict.checkMoves import checkMoves
 
 
 def predict(input):
@@ -24,7 +25,12 @@ def predict(input):
         return {"gameStatus": "error: " + boardValidity["errorMessage"] }
 
     #Check that moves is valid
-
+    moves = 1
+    if "moves" in input:
+        moves = input["moves"]
+        movesValidity = checkMoves(moves)
+        if movesValidity["isInvalid"] == True:
+            return {"gameStatus": "error: "+ movesValidity["errorMessage"]}
 
 
     return {}
