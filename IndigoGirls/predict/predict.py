@@ -14,6 +14,7 @@ from IndigoGirls.utils.isBoardValid import isBoardValid
 
 def predict(input):
 
+    #Check that board is valid
     if "board" not in input:
         return {"gameStatus": "error: missing board"}
 
@@ -22,4 +23,8 @@ def predict(input):
     if boardValidity["isInvalid"] == True:
         return {"gameStatus": "error: " + boardValidity["errorMessage"] }
 
-    return 0
+    #Check that moves is valid
+
+
+
+    return {}

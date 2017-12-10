@@ -202,3 +202,124 @@ class PredictTest(TestCase):
 
         self.assertIn("gameStatus", output)
         self.assertIn("error", output["gameStatus"])
+
+    def test_goodBoard01(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [0,1,2,0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "up"
+        input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertNotIn("error", output["gameStatus"])
+
+
+    def test_badMoves01(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1,2, 2, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "right"
+        input["moves"] = 0
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badMoves02(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 2, 2, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "right"
+        input["moves"] = "1"
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badDirection01(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 2, 2, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = "north"
+        input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badDirection02(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 2, 2, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = None
+        input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])
+
+    def test_badDirection03(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 2, 2, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        input["direction"] = 3
+        input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])
+
+    def test_MissingDirection01(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [1, 2, 2, 0]
+        board["rowCount"] = 2
+        board["columnCount"] = 2
+
+        input["board"] = board
+        #input["direction"] = "up"
+        input["moves"] = 1
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])
+
