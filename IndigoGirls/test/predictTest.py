@@ -348,6 +348,6 @@ class PredictTest(TestCase):
         lowScore = output["lowScore"]
         averageScore = output["averageScore"]
 
-        self.assertEqual(highScore, 2)
-        self.assertEqual(lowScore, 2)
-        self.assertEqual(averageScore, 2)
+        self.assertEqual(highScore, 4)
+        self.assertEqual(lowScore, 4)
+        self.assertEqual(averageScore, 4)
