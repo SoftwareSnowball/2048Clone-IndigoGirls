@@ -79,10 +79,10 @@ class IntegrationTests(TestCase):
         columnCount = 2
         rowCount = 2
         grid = [1,0,1,0]
-        direction = "up"
+        moves = 1
 
         board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
-        message = {"board": board, "op": "recommend"}
+        message = {"board": board, "op": "recommend", "moves": moves}
 
         jInput = json.dumps(message, ensure_ascii=True)
 
@@ -102,7 +102,7 @@ class IntegrationTests(TestCase):
         direction = "up"
 
         board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
-        message = {"board": board, "op": "predict"}
+        message = {"board": board, "op": "predict", "direction": direction}
 
         jInput = json.dumps(message, ensure_ascii=True)
 

@@ -14,8 +14,6 @@ from IndigoGirls.predict.isMovesValid import isMovesValid
 from IndigoGirls.utils.isDirectionValid import isDirectionValid
 from IndigoGirls.recommend.searchSwipePaths import searchSwipePaths
 
-import signal
-import multiprocessing
 import time
 
 def predict(input):

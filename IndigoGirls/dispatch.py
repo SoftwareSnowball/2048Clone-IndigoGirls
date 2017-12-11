@@ -4,6 +4,7 @@ from IndigoGirls.initializeGame import initializeGame
 from IndigoGirls.swipe.swipe import swipe
 from IndigoGirls.status.status import status
 from IndigoGirls.recommend.recommend import recommend
+from IndigoGirls.predict.predict import predict
 
 def dispatch(messageJson=None):
     """
@@ -55,7 +56,7 @@ def dispatch(messageJson=None):
     elif(messageDictionary[u"op"] == u"status"):
         resultDictionary = status(messageDictionary)
     elif(messageDictionary[u"op"] == u"predict"):
-        resultDictionary = status(messageDictionary)
+        resultDictionary = predict(messageDictionary)
     else:
         resultDictionary = buildErrorString('op is invalid')
 

@@ -31,7 +31,6 @@ def searchSwipePaths(board, movesleft, direction, timeStart = 0):
 
     if (timeStart != 0):
         elapsed = time.clock() - timeStart
-        print elapsed
         if (elapsed > 0.5):
             raise RuntimeError
 
