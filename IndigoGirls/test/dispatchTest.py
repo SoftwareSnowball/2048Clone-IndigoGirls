@@ -93,3 +93,23 @@ class IntegrationTests(TestCase):
         score = output["score"]
 
         self.assertEquals(score, 2 ** 2)
+
+
+    def test_predictIntegration01(self):
+        columnCount = 2
+        rowCount = 2
+        grid = [1,0,1,0]
+        direction = "up"
+
+        board = {"columnCount": columnCount, "rowCount": rowCount, "grid": grid}
+        message = {"board": board, "op": "predict"}
+
+        jInput = json.dumps(message, ensure_ascii=True)
+
+        joutput = dispatch(jInput)
+
+        output = json.loads(joutput)
+
+        score = output["highScore"]
+
+        self.assertEquals(score, 2 ** 2)
