@@ -62,7 +62,7 @@ def predict(input):
     resultPackage["gameStatus"] = "underway"
     resultPackage["highScore"] = searchResults["maxScore"]
     resultPackage["lowScore"] = searchResults["minScore"]
-    resultPackage["averageScore"] = searchResults["avgScore"]
+    resultPackage["averageScore"] = round(searchResults["avgScore"],0)
 
 
     return resultPackage

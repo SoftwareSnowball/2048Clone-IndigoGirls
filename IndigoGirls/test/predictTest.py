@@ -490,7 +490,7 @@ class PredictTest(TestCase):
 
         self.assertEqual(highScore, 28)
         self.assertEqual(lowScore, 4)
-        self.assertEqual(averageScore, 15)
+        self.assertEqual(averageScore, 16)
 
 
     def test_predictNoValidMove_03(self):

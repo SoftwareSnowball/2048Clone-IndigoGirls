@@ -27,8 +27,6 @@ def searchSwipePaths(board, movesleft, direction):
     #   return -1
     #return score
 
-    score = 1
-
     errorMessage = ""
 
     outputPackage = {}
@@ -91,7 +89,7 @@ def searchSwipePaths(board, movesleft, direction):
 
     average /= float(sum(avgScoreWeights))
 
-    outputPackage["avgScore"] += int(round(average,0))
+    outputPackage["avgScore"] += average
 
 
 
