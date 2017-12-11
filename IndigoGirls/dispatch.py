@@ -54,6 +54,8 @@ def dispatch(messageJson=None):
         resultDictionary = recommend(messageDictionary)
     elif(messageDictionary[u"op"] == u"status"):
         resultDictionary = status(messageDictionary)
+    elif(messageDictionary[u"op"] == u"predict"):
+        resultDictionary = status(messageDictionary)
     else:
         resultDictionary = buildErrorString('op is invalid')
 

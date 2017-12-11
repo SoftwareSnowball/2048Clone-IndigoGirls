@@ -14,6 +14,10 @@ from IndigoGirls.predict.isMovesValid import isMovesValid
 from IndigoGirls.utils.isDirectionValid import isDirectionValid
 from IndigoGirls.recommend.searchSwipePaths import searchSwipePaths
 
+import signal
+import multiprocessing
+import time
+
 def predict(input):
 
 
@@ -51,8 +55,10 @@ def predict(input):
     direction = direction.lower()
 
 
-
-    searchResults = searchSwipePaths(board, moves - 1, direction)
+    try:
+        searchResults = searchSwipePaths(board, moves - 1, direction, time.clock())
+    except RuntimeError:
+        return { "gameStatus": "error: runtime error detected" }
 
     if (searchResults["isInvalid"]):
         return {"gameStatus": "error: " + searchResults["errorMessage"]}

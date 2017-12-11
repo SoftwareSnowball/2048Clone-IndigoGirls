@@ -509,3 +509,24 @@ class PredictTest(TestCase):
 
         self.assertIn("gameStatus", output)
         self.assertIn("error", output["gameStatus"])
+
+    def test_predictManyMoves_01(self):
+        input = {}
+
+        board = {}
+        board["grid"] = [0] * (100*100)
+        board["rowCount"] = 100
+        board["columnCount"] = 100
+
+        board["grid"][3] = 4
+        board["grid"][2] = 5
+        board["grid"][23] = 2
+
+        input["board"] = board
+        input["direction"] = "down"
+        input["moves"] = 1000000
+
+        output = predict(input)
+
+        self.assertIn("gameStatus", output)
+        self.assertIn("error", output["gameStatus"])

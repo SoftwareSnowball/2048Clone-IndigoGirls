@@ -9,8 +9,9 @@
 
 from IndigoGirls.utils.copyBoard import copyBoard
 from IndigoGirls.swipe.deterministicSwipe import deterministicSwipe
+import time
 
-def searchSwipePaths(board, movesleft, direction):
+def searchSwipePaths(board, movesleft, direction, timeStart = 0):
 
     #perform swipe on board in direction
     #store score from swipe
@@ -26,6 +27,14 @@ def searchSwipePaths(board, movesleft, direction):
     #if greatest score is -1
     #   return -1
     #return score
+
+
+    if (timeStart != 0):
+        elapsed = time.clock() - timeStart
+        print elapsed
+        if (elapsed > 0.5):
+            raise RuntimeError
+
 
     errorMessage = ""
 
@@ -67,7 +76,7 @@ def searchSwipePaths(board, movesleft, direction):
 
     for index in range(4):
         boardCopy = copyBoard(board)
-        directionalSearchResult = searchSwipePaths(boardCopy, movesleft - 1, directions[index])
+        directionalSearchResult = searchSwipePaths(boardCopy, movesleft - 1, directions[index], timeStart)
 
         if directionalSearchResult["isInvalid"] == False:
             maxScores.append(directionalSearchResult["maxScore"])
